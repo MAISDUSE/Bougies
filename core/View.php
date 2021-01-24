@@ -47,7 +47,7 @@ class View
     // A l'intérieur donc local a la methode show()
   }
 
-    // Affiche toutes les valeurs des paramètres de la vue
+  // Affiche toutes les valeurs des paramètres de la vue
   function dump() {
     foreach ($this->param as $key => $value) {
       print("<br/><b>$key: </b>\n");
@@ -58,7 +58,7 @@ class View
   //Fonction qui fait tout en un : assigne un tableau de paramètres et ensuite display la vue.
   function render(string $filename, $param=array()){
     foreach ($param as $key => $value) {
-    $this->assign($key, $value);
+      $this->assign($key, $value);
     }
     $this->display($filename);
 
