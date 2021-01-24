@@ -55,5 +55,15 @@ class View
     }
   }
 
+  //Fonction qui fait tout en un : assigne un tableau de paramètres et ensuite display la vue.
+  function render(string $filename, $param=array()){
+    foreach ($param as $key => $value) {
+    $this->assign($key, $value);
+    }
+    $this->display($filename);
+
+  }
+
+
 
 }

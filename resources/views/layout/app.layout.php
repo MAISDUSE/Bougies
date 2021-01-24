@@ -8,7 +8,7 @@
 
     @section('head')
 
-    
+
 </head>
 <body>
 
@@ -19,6 +19,23 @@
 
 
         @endforeach
+
+
+
+
+          <h1><?=$param1?></h1>
+
+          <?php
+          foreach($param2 as $key => $value){?>
+
+              <h2><?=$value?></h2>
+
+          <?php
+          }
+          ?>
+
+
+
 
 </body>
 </html>
