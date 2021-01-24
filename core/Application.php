@@ -8,24 +8,26 @@ namespace core;
  */
 class Application
 {
-    //Router instance
-    public Router $router;
     //Main application singleton
     public static Application $app;
+
+    //Router instance
+    public Router $router;
 
     public function __construct()
     {
         Application::$app = $this;
-        $this->router = new Router();
-    }
 
-    public function run()
-    {
-        echo "it's alive!<br>";
+        $this->router = new Router();
     }
 
     public function routerTest()
     {
         echo "Router test<br>";
+    }
+
+    public function run()
+    {
+        echo "it's alive!<br>";
     }
 }

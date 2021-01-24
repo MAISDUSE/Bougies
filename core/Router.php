@@ -9,10 +9,13 @@ namespace core;
 class Router
 {
     public array $routes;
+    public const ROUTES_PATH = "../routes";
 
     public function __construct()
     {
         Application::$app->routerTest();
+
+        $this->getRoutes();
     }
 
     /**
@@ -20,6 +23,11 @@ class Router
      */
     public function getRoutes()
     {
+        $routeFiles = glob(Router::ROUTES_PATH.'/*.php');
 
+        foreach ($routeFiles as $routeFile)
+        {
+            require_once "$routeFile";
+        }
     }
 }

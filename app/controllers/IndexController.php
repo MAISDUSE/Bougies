@@ -1,7 +1,15 @@
 <?php
 
+namespace app\controllers;
 
-class IndexController
+use \core\Controller;
+
+class IndexController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
 
+        echo "IndexController class";
+    }
 }
