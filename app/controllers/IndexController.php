@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Event;
 use \core\Controller;
 
 class IndexController extends Controller
@@ -33,6 +34,6 @@ class IndexController extends Controller
 
     public function events()
     {
-        $this->view->render("events.layout.php", ["events" => Event::all()]);
+        $this->view->render("layout/app.layout.php", ["param1" => Event::all(), "param2" => []]);
     }
 }
