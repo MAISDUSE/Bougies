@@ -8,7 +8,12 @@ class IndexController extends Controller
 {
     public function index()
     {
-        echo "index";
+        $data = [];
+        /*return $this->view->view("layout/app.layout.php", [
+            "param1" => $data
+        ]);*/
+
+        return $this->view->display("layout/app.layout.php");
     }
 
     public function contact()

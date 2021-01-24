@@ -5,9 +5,11 @@ namespace core;
 //CLasse minimaliste pour normaliser l'usage d'une vue.
 //Cette classe est inspiré du moteur et compilateur de template Smarty
 
-class View{
+class View
+{
   //Paramètres de la vue, dans un tableau associatif
-  private $param;
+  private array $param;
+  private const VIEW_FOLDER = __DIR__."/../resources/views/";
 
 
   //constructeur d'une vue
@@ -25,7 +27,7 @@ class View{
   function display(string $filename) {
 
     // Ajoute le chemin relatif vers le fichier de la vue
-    $p = "../view/".$filename;
+    $p = self::VIEW_FOLDER.$filename;
 
     // Tous les attributs de l'objet sont dupliqués en des variables
     // locales à la fonction display. Cela simplifie l'expression des
@@ -41,7 +43,7 @@ class View{
     // Inclusion de la vue
     // Comme cette inclusion est dans la portée de la méthode show alors
     // seules les variables locales à show sont visibles.
-    include($p);
+    return include($p);
     // A l'intérieur donc local a la methode show()
   }
 
