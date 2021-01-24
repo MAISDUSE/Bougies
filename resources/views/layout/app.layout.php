@@ -34,8 +34,12 @@
           }
           ?>
 
+        <h2>Syntaxe raccourcie : </h2>
+    <?php foreach ($param2 as $key => $value): ?>
 
+        <h3><?=$value?></h3>
 
+    <?php endforeach; ?>
 
 </body>
 </html>
