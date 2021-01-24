@@ -6,9 +6,19 @@
 
     <title>Document</title>
 
+    @section('head')
+
     
 </head>
 <body>
+
+
+        @section('main')
+
+        @foreach($var as $key => $value)
+
+
+        @endforeach
 
 </body>
 </html>

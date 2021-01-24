@@ -8,7 +8,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        echo "Index Method";
+        echo "index";
     }
 
     public function contact()

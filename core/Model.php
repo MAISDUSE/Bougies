@@ -1,7 +1,7 @@
 <?php
 
 
-class Model
+abstract class Model
 {
 
 }
