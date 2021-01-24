@@ -1,7 +1,8 @@
 <?php
 
+use core\Model;
 
-class Bougie
+class Bougie extends Model
 {
 
 }

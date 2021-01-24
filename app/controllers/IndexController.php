@@ -20,4 +20,14 @@ class IndexController extends Controller
     {
         echo "contact";
     }
+
+    public function showUser(User $user)
+    {
+        \Bougie::all();
+    }
+
+    public function events()
+    {
+        $this->view->render("events.layout.php", ["events" => Event::all()]);
+    }
 }
