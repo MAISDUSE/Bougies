@@ -16,18 +16,13 @@ class Application
 
     public function __construct()
     {
-        Application::$app = $this;
+        self::$app = $this;
 
         $this->router = new Router();
     }
 
-    public function routerTest()
-    {
-        echo "Router test<br>";
-    }
-
     public function run()
     {
-        echo "it's alive!<br>";
+        $this->router->resolveRoute();
     }
 }

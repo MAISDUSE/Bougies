@@ -8,8 +8,15 @@ namespace core;
  */
 class Route
 {
+    public static array $routes = [];
+
     public static function get($uri, $callback)
     {
-        echo "$uri : $callback<br>";
+        self::$routes['get'][$uri] = $callback;
+    }
+
+    public static function post($uri, $callback)
+    {
+        self::$routes['post'][$uri] = $callback;
     }
 }

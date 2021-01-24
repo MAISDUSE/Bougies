@@ -6,10 +6,13 @@ use \core\Controller;
 
 class IndexController extends Controller
 {
-    public function __construct()
+    public function index()
     {
-        parent::__construct();
+        echo "Index Method";
+    }
 
-        echo "IndexController class";
+    public function contact()
+    {
+        echo "contact";
     }
 }
