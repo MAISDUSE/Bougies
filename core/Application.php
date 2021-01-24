@@ -2,10 +2,7 @@
 
 namespace core;
 
-/**
- * @author Hugo
- * Main class
- */
+
 class Application
 {
     //Main application singleton
