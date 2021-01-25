@@ -3,6 +3,15 @@
 use app\controllers\IndexController;
 use core\Route;
 
+/* Définition des routes utilisateurs
+    Syntaxe : Route::[get|post](uri, callback);
+    callback :
+        Controller (méthode par défaut appelée [index])
+        [Controller, method]
+        fonction anonyme : function () {}
+*/
+
+
 Route::get('/', IndexController::class);
 
 Route::get('/test', function () {

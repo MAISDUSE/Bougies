@@ -2,10 +2,18 @@
 
 namespace core;
 
+/**
+ * Class Model
+ * @package core
+ */
 abstract class Model
 {
-    public static function all()
+    /**
+     * Récupère tous les éléments d'une table
+     * @return array
+     */
+    public static function all() : array
     {
-        return self::class . "test";
+        return [self::class . "test"];
     }
 }
