@@ -12,6 +12,8 @@ class Router
     public Request $request;
     public const ROUTES_PATH = "../routes";
 
+    private array $args = [];
+
     public function __construct()
     {
         $this->getRoutes();
@@ -39,7 +41,7 @@ class Router
         $path = $this->request->getPath();
         $method = $this->request->getMethod();
 
-        $callback = $this->routes[$method][$path] ?? false;
+        $callback = $this->match($method, $path);
 
         if ($callback === false)
         {
@@ -47,10 +49,34 @@ class Router
             exit;
         }
 
-        if (is_string($callback))
+        call_user_func_array($callback, $this->args);
+    }
+
+    private function match(string $method, string $path)
+    {
+        $callback = $this->routes[$method][$path] ?? false;
+        $remainingRoutes = $this->routes[$method];
+
+        while ($remainingRoutes != [] && $callback === false)
         {
-            $callback = new $callback;
-            return $callback->index();
+            $route = array_key_first($remainingRoutes);
+
+            if (strpos($route, '{'))
+            {
+                $url = trim($path, '/');
+                $out = preg_replace("#{(\w+)}#", '([^/]+)', $route);
+                $out = trim($out, '/');
+
+                if (preg_match("#^$out$#", $url, $matches))
+                {
+                    $callback = $this->routes[$method][$route];
+                }
+
+                array_shift($matches);
+                $this->args = $matches;
+            }
+
+            array_shift($remainingRoutes);
         }
 
         if (is_array($callback))
@@ -58,6 +84,19 @@ class Router
             $callback[0] = new $callback[0];
         }
 
-        return call_user_func($callback);
+        if (is_string($callback))
+        {
+            $action = $callback;
+            $callback = [];
+            $callback[0] = new $action;
+            $callback[1] = 'index';
+        }
+
+        if ($callback === [])
+        {
+            $callback = false;
+        }
+
+        return $callback;
     }
 }
