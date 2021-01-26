@@ -114,7 +114,7 @@ class Router
         //Si l'action à effectuer est un tableau, on instancie le 1er élément du tableau (Controller) et on le replace
         if (is_array($callback))
         {
-            $callback[0] = new $callback[0];
+            $callback[0] = new $callback[0]($this->request);
         }
 
         //Si l'action à effectuer est une chaine de caratère (nom du controller), on le transforme en tableau et on instancie le controller en 1ere position, puis la méthode par défaut dans le 2e
@@ -122,7 +122,7 @@ class Router
         {
             $action = $callback;
             $callback = [];
-            $callback[0] = new $action;
+            $callback[0] = new $action($this->request);
             $callback[1] = 'index';
         }
 

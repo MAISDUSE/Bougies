@@ -2,7 +2,9 @@
 
 use app\controllers\BougiesController;
 use app\controllers\IndexController;
+use app\controllers\UsersController;
 use core\Route;
+
 
 /* Définition des routes utilisateurs
     Syntaxe : Route::[get|post](uri, callback);
@@ -23,9 +25,8 @@ Route::get('/test', function () {
 Route::get('/contact', [IndexController::class, 'contact']);
 Route::post('/contact', [IndexController::class, 'sendMail']);
 
-Route::get('/users/{id}', function ($id) {
-    echo "id : $id";
-});
+//users
+Route::get('/users/{id}', [UsersController::class, 'show']);
 
 Route::get('/events/{id}', [IndexController::class, 'showEvent']);
 
