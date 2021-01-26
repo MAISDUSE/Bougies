@@ -16,10 +16,22 @@ abstract class Controller
     public View $view;
 
     /**
-     * Controller constructor. crée une instance de View
+     * @var Response $response Instance de la classe Response de l'application
+     */
+    public Response $response;
+
+    /**
+     * Controller constructor.
+     * Crée une instance de vue & récupère l'instande de Response
      */
     public function __construct()
     {
         $this->view = new View();
+        $this->response = Application::$app->response;
+    }
+
+    public function redirect(string $url)
+    {
+        $this->response->redirect($url);
     }
 }

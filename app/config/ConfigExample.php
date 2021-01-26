@@ -17,11 +17,12 @@ class ConfigExample
      */
     public static function loadConfig() : array
     {
-        $config['db_host'] = 'localhost';
+        $config['db_driver'] = 'mysql';
+        $config['db_host'] = '127.0.0.1';
         $config['db_port'] = '3306';
         $config['db_name'] = 'table';
         $config['db_user'] = 'user';
-        $config['db_password'] = 'password';
+        $config['db_password'] = 'pwd';
 
         return $config;
     }

@@ -34,6 +34,7 @@ Route::get('/events', [IndexController::class, 'events']);
 Route::get('/bougies', [IndexController::class, 'bougies']);
 Route::get('/bougies/{id}', [IndexController::class, 'getBougie']);
 Route::get('/bougies/{id}/delete', [BougiesController::class, 'delete']);
+Route::get('/bougies/{id}/update', [BougiesController::class, 'update']);
 
 
 Route::get('/bougies/testInsert', [BougiesController::class, 'testInsert']);

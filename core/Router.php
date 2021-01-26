@@ -69,7 +69,6 @@ class Router
         {
             $view = new View();
             $view->show404();
-            exit;
         }
 
         call_user_func_array($callback, $this->args);

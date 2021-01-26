@@ -24,8 +24,19 @@ class BougiesController extends Controller
 
     public function delete($id)
     {
-        $this->view->render("bougies/show", [
-            'bougie' => Bougie::delete($id)
-        ]);
+        Bougie::delete($id);
+
+        $this->redirect("/bougies");
+    }
+
+    public function update($id)
+    {
+        $bougie = [
+            'nom_bougie' => "Bougie de malade mental"
+        ];
+
+        Bougie::update($id, $bougie);
+
+        $this->redirect("/bougies/$id");
     }
 }

@@ -73,6 +73,7 @@ class View
     function show404()
     {
         Application::$app->response->setStatusCode(404);
-        $this->render("errors/404.php");
+        $this->render("errors/404");
+        exit;
     }
 }

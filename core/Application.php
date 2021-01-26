@@ -59,4 +59,9 @@ class Application
     {
         $this->router->resolveRoute();
     }
+
+    public static function base_url()
+    {
+        return self::$app->config['base_url'];
+    }
 }
