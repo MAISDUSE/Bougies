@@ -50,6 +50,8 @@ class Application
         $this->db = new Database($this->config);
 
         $this->response = new Response();
+
+        session_start();
     }
 
     /**

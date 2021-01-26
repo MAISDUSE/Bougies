@@ -40,7 +40,7 @@ abstract class Model
 
         if ($found === false)
         {
-            (new View)->show404();
+            //(new View)->show404();
         }
         return $found;
     }
