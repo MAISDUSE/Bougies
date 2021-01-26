@@ -14,13 +14,19 @@ class UsersController extends Controller
   }
 
 
-  public function login($id, $pass){
-
+  public function loginForm(){
+    //test si qqn co
+    //affiche le form car non connecté
   }
 
-  public function register($login, $pass){
+  public function login(){
+    //login le user via les fonction dans Authentification check mail
+  }
 
-    
+  public function register()){
+//recupère les données utilisateurs puis appele les fonctions de traitement de Authentification
+
+
   }
 
 

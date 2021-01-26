@@ -27,6 +27,9 @@ Route::post('/contact', [IndexController::class, 'sendMail']);
 
 //users
 Route::get('/users/{id}', [UsersController::class, 'show']);
+Route::post('/login', [UsersController::class, 'login']);
+Route::get('/login', [UsersController::class, 'loginForm']);
+Route::post('/register', [UsersController::class, 'register']);
 
 Route::get('/events/{id}', [IndexController::class, 'showEvent']);
 
