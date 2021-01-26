@@ -2,6 +2,8 @@
 
 namespace core;
 
+use app\config\Config;
+
 /**
  * Class Application
  * @package core
@@ -19,6 +21,17 @@ class Application
     public Router $router;
 
     /**
+     * @var Database $db Instance de la BDD
+     */
+    public Database $db;
+
+    /**
+     * Contient la configuration
+     * @var array $config
+     */
+    public array $config;
+
+    /**
      * Application constructor. Défini le singleton et instancie un Router
      */
     public function __construct()
@@ -26,6 +39,10 @@ class Application
         self::$app = $this;
 
         $this->router = new Router();
+
+        $this->config = Config::loadConfig();
+
+        $this->db = new Database($this->config);
     }
 
     /**

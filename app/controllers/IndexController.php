@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Bougie;
 use app\models\Event;
 use \core\Controller;
 
@@ -30,6 +31,20 @@ class IndexController extends Controller
     public function events()
     {
         $this->view->render("layout/app.layout.php", ["param1" => Event::all(), "param2" => []]);
+    }
+
+    public function bougies()
+    {
+        $this->view->render("bougies/index.layout.php",[
+           'bougies' => Bougie::all()
+        ]);
+    }
+
+    public function getBougie($bougieid)
+    {
+        $this->view->render("bougies/show.layout.php",[
+            'bougie' => Bougie::find($bougieid)
+        ]);
     }
 
     public function showEvent($event)

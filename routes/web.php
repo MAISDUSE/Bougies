@@ -1,5 +1,6 @@
 <?php
 
+use app\controllers\BougiesController;
 use app\controllers\IndexController;
 use core\Route;
 
@@ -29,3 +30,10 @@ Route::get('/users/{id}', function ($id) {
 Route::get('/events/{id}', [IndexController::class, 'showEvent']);
 
 Route::get('/events', [IndexController::class, 'events']);
+
+Route::get('/bougies', [IndexController::class, 'bougies']);
+Route::get('/bougies/{id}', [IndexController::class, 'getBougie']);
+Route::get('/bougies/{id}/delete', [BougiesController::class, 'delete']);
+
+
+Route::get('/bougies/testInsert', [BougiesController::class, 'testInsert']);
