@@ -67,7 +67,8 @@ class Router
 
         if ($callback === false)
         {
-            echo "404 - Not Found<br>";
+            $view = new View();
+            $view->show404();
             exit;
         }
 

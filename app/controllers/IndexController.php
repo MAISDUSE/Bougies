@@ -13,7 +13,7 @@ class IndexController extends Controller
         $data1 = "Ceci est ma première donnée via render";
         $data2 = [1,2,3,4,5,6,7,8,9];
 
-        return $this->view->render("layout/app.layout.php", [
+        return $this->view->render("layout/app", [
             "param1" => $data1, //variable simple
             "param2" => $data2 //tableau entier
         ]);
@@ -30,19 +30,19 @@ class IndexController extends Controller
 
     public function events()
     {
-        $this->view->render("layout/app.layout.php", ["param1" => Event::all(), "param2" => []]);
+        $this->view->render("layout/app", ["param1" => Event::all(), "param2" => []]);
     }
 
     public function bougies()
     {
-        $this->view->render("bougies/index.layout.php",[
+        $this->view->render("bougies/index",[
            'bougies' => Bougie::all()
         ]);
     }
 
     public function getBougie($bougieid)
     {
-        $this->view->render("bougies/show.layout.php",[
+        $this->view->render("bougies/show",[
             'bougie' => Bougie::find($bougieid)
         ]);
     }

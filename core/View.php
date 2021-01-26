@@ -29,7 +29,7 @@ class View
     function display(string $filename)
     {
         // Ajoute le chemin relatif vers le fichier de la vue
-        $p = self::VIEW_FOLDER . $filename;
+        $p = self::VIEW_FOLDER . $filename . ".php";
 
         // Tous les attributs de l'objet sont dupliqués en des variables
         // locales à la fonction display. Cela simplifie l'expression des
@@ -68,5 +68,11 @@ class View
         }
 
         return $this->display($filename);
+    }
+
+    function show404()
+    {
+        Application::$app->response->setStatusCode(404);
+        $this->render("errors/404.php");
     }
 }

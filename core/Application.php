@@ -26,6 +26,11 @@ class Application
     public Database $db;
 
     /**
+     * @var Response $response Instance de la classe Response
+     */
+    public Response $response;
+
+    /**
      * Contient la configuration
      * @var array $config
      */
@@ -43,6 +48,8 @@ class Application
         $this->config = Config::loadConfig();
 
         $this->db = new Database($this->config);
+
+        $this->response = new Response();
     }
 
     /**

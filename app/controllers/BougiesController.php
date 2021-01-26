@@ -17,14 +17,14 @@ class BougiesController extends Controller
 
         $inserted = Bougie::create($bougie);
 
-        $this->view->render("bougies/show.layout.php", [
+        $this->view->render("bougies/show", [
             'bougie' => $inserted
         ]);
     }
 
     public function delete($id)
     {
-        $this->view->render("bougies/show.layout.php", [
+        $this->view->render("bougies/show", [
             'bougie' => Bougie::delete($id)
         ]);
     }
