@@ -24,6 +24,8 @@ class ConfigExample
         $config['db_user'] = 'user';
         $config['db_password'] = 'pwd';
 
+        $config['template_key'] = 'layout';
+
         return $config;
     }
 }
