@@ -85,21 +85,31 @@ class Database
             if (!empty($value))
             {
                 $attrs .= "$attr, ";
-                $values .= "'$value', ";
+                $values .= ":$attr, ";
             }
         }
 
         $attrs = rtrim($attrs, ', ');
         $values = rtrim($values, ', ');
 
-        $statement = $this->pdo->prepare("INSERT INTO $tableName ($attrs) VALUES ($values) ");
+        $statement = $this->pdo->prepare("INSERT INTO $tableName ($attrs) VALUES ($values)");
+
+        $statement = $this->bindParams($statement, $newElem);
 
         $statement->execute();
 
         return $this->find($tableName, $primaryKey, $this->pdo->lastInsertId());
     }
 
-    public function update(string $tableName, string $primaryKey, $elem, $updatedElem)
+    /**
+     * Modifie un élément de la BDD
+     * @param string $tableName Nom de la table
+     * @param string $primaryKey Clé primaire
+     * @param mixed $elem identifiant de l'élément à modifier
+     * @param array $updatedElem Tableau associatif des attributs à modifier
+     * @return mixed retourne une instance de l'élément modifié
+     */
+    public function update(string $tableName, string $primaryKey, $elem, array $updatedElem)
     {
         $params = '';
 
@@ -107,13 +117,15 @@ class Database
         {
             if (!empty($value))
             {
-                $params .= "$attr = '$value', ";
+                $params .= "$attr = :$attr, ";
             }
         }
 
         $params = rtrim($params, ', ');
 
         $statement = $this->pdo->prepare("UPDATE $tableName SET $params WHERE $primaryKey = '$elem'");
+
+        $statement = $this->bindParams($statement, $updatedElem);
 
         $statement->execute();
 
@@ -134,5 +146,35 @@ class Database
         $this->pdo->prepare("DELETE FROM $tableName WHERE $primaryKey = '$elem'")->execute();
 
         return $backup;
+    }
+
+    /**
+     * Associe les valeurs dans la requete préparée
+     * @param object $statement Object PDO avec la requete
+     * @param array $element Tableau associatif de l'élément à créer ou modifier
+     * @return object retourne le statement avec les paramètres ajoutés
+     */
+    private function bindParams(object $statement, array $element): object
+    {
+        foreach ($element as $attr => $value)
+        {
+            $param = null;
+            switch (gettype($value))
+            {
+                case "integer":
+                    $param = PDO::PARAM_INT;
+                    break;
+                case "string":
+                    $param = PDO::PARAM_STR;
+                    break;
+                default:
+                    $param = PDO::PARAM_NULL;
+                    break;
+            }
+
+            $statement->bindValue(":$attr", $value, $param);
+        }
+
+        return $statement;
     }
 }

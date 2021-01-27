@@ -10,7 +10,7 @@ class BougiesController extends Controller
     public function testInsert()
     {
         $bougie = [
-            'nom_bougie' => "test nom",
+            'nom_bougie' => "test ddddzad",
             'id_livre' => 1,
             'id_collection' => 1
         ];
