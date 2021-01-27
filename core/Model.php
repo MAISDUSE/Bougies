@@ -38,10 +38,7 @@ abstract class Model
     {
         $found = Application::$app->db->find(static::$table, static::$primaryKey, $elem);
 
-        if ($found === false)
-        {
-            //(new View)->show404();
-        }
+        if ($found === false) (new View())->show404();
         return $found;
     }
 

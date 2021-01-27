@@ -10,21 +10,22 @@
 
 
         <h2>Connexion - Log In</h2>
-        <form method="post" class="infosconnexion" id="login">
-
+        <form action="" method="post" class="infosconnexion" id="login">
+            <input type="hidden" value="<?= $csrf ?>" name="csrf">
           <div class="">
             <label for="login">Login: </label>
             <input type="text" name="login" id="login" placeholder="Votre login" required>
           </div>
 
+
+
           <div class="">
-            <label for="lpassword">Mot de passe : </label>
-            <input type="password" name="lpassword" id="lpassword" placeholder="Votre Mot de passe" required>
+            <label for="password">Mot de passe : </label>
+            <input type="password" name="password" id="password" placeholder="Votre Mot de passe" required>
           </div>
 
           <div class="sbmit">
             <input type="submit" name="formlogin" id="formlogin" value="Se connecter">
-            <!--<p><?= $etat ?></p>-->
           </div>
 
         </form>

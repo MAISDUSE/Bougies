@@ -67,8 +67,7 @@ class Router
 
         if ($callback === false)
         {
-            $view = new View();
-            $view->show404();
+            (new View())->show404();
         }
 
         call_user_func_array($callback, $this->args);

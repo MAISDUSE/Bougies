@@ -1,6 +1,5 @@
 <?php
 
-
 namespace core;
 
 /**
@@ -10,6 +9,13 @@ namespace core;
  */
 class Request
 {
+    public CSRFValidation $csrf;
+
+    public function __construct()
+    {
+        $this->csrf = new CSRFValidation();
+    }
+
     /**
      * Récupère l'url
      * @return string
@@ -28,6 +34,18 @@ class Request
      */
     public function getMethod(): string
     {
-        return strtolower($_SERVER['REQUEST_METHOD']);
+        $method = strtolower($_SERVER['REQUEST_METHOD']);
+
+        $this->csrf->validate($method, $this->post('csrf'));
+
+        return $method;
+    }
+
+    public function post($var = false)
+    {
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $value = $_POST[$var] ?? false;
+
+        return ($var === false)? $_POST : $value;
     }
 }

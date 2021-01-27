@@ -43,6 +43,8 @@ class Application
     {
         self::$app = $this;
 
+        session_start();
+
         $this->router = new Router();
 
         $this->config = Config::loadConfig();
@@ -50,8 +52,6 @@ class Application
         $this->db = new Database($this->config);
 
         $this->response = new Response();
-
-        session_start();
     }
 
     /**

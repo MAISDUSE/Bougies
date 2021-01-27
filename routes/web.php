@@ -32,7 +32,10 @@ Route::get('/login', [UsersController::class, 'loginForm']);
 Route::post('/register', [UsersController::class, 'register']);
 Route::get('/users', [UsersController::class, 'me']);
 Route::post('/logout', [UsersController::class, 'logout']);
-
+Route::get('/logout', function() {
+   session_unset();
+   session_destroy();
+});
 
 
 Route::get('/events/{id}', [IndexController::class, 'showEvent']);
