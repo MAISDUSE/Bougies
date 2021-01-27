@@ -82,11 +82,8 @@ class Database
 
         foreach ($newElem as $attr => $value)
         {
-            if (!empty($value))
-            {
-                $attrs .= "$attr, ";
-                $values .= ":$attr, ";
-            }
+            $attrs .= "$attr, ";
+            $values .= ":$attr, ";
         }
 
         $attrs = rtrim($attrs, ', ');
@@ -115,10 +112,7 @@ class Database
 
         foreach ($updatedElem as $attr => $value)
         {
-            if (!empty($value))
-            {
-                $params .= "$attr = :$attr, ";
-            }
+            $params .= "$attr = :$attr, ";
         }
 
         $params = rtrim($params, ', ');

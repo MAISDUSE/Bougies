@@ -34,9 +34,9 @@ class View
      */
     function display(string $filename)
     {
-        $view = self::VIEW_FOLDER . $filename;
+        if (!preg_match('#\.php$#', $filename)) $filename .= ".php";
 
-        if (!preg_match('#\.php$#', $view)) $view .= ".php";
+        $view = self::VIEW_FOLDER . $filename;
 
         foreach ($this->param as $key => $value)
         {
@@ -45,11 +45,11 @@ class View
 
         if (!file_exists($view)) ExceptionHandler::raiseException("ViewNotFoundException", "The view $view does not exists.");
 
-        $regex = "#" . Application::$app->config['template_key'] . "php$#";
+        $regex = "#" . Application::$app->config['template_key'] . ".php$#";
 
         if (preg_match($regex, $view))
         {
-            $this->renderWithTemplate();
+            $this->renderWithTemplate($filename);
         }
         else
         {
@@ -62,7 +62,7 @@ class View
      * @param string $filename Nom de la vue
      * @param array $param Paramètres de la vue
      */
-    function render(string $filename, $param = array())
+    public function render(string $filename, $param = array())
     {
         $param['csrf'] = $_SESSION['csrf'];
         foreach ($param as $key => $value)
@@ -75,10 +75,11 @@ class View
 
     /**
      * Génère la vue après parsing des templates
+     * @param string $view nom de la vue passée en paramètre
      */
-    private function renderWithTemplate()
+    private function renderWithTemplate(string $view)
     {
-
+        (new Builder($view))->make();
     }
 
     /**
