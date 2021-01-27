@@ -70,16 +70,20 @@ class UsersController extends Controller
 
         //check user avec meme login n'existe pas
         //si exit affiche code erreur dans $etat2 de la vue
-        $etat2 = Auth::register($login, $password, $cpassword);
+        $etat = Auth::register($login, $password, $cpassword);
 
-
-        if ($etat == 1 | $etat == 2) {
-            $this->view->render("login", ["etat" => $etat]);
+        if ($etat == -1 | $etat == -2 | $etat ==-3) {
+            $this->redirect("/register");
         } else {
             //si register ok
             //session deja set
-            $this->view->render("user");
+            $this->redirect("/users");
         }
+    }
+
+    public function registerForm()
+    {
+      $this->view->render("/users/register");
     }
 
 

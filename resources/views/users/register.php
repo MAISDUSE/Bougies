@@ -11,6 +11,7 @@
 
       <h2>Inscription - Sign In</h2>
       <form method="post" class="infosconnexion" id="signin">
+        <input type="hidden" value="<?= $csrf ?>" name="csrf">
 
         <div class="">
           <label for="login">Login :</label>
@@ -29,7 +30,6 @@
 
         <div class="sbmit">
           <input type="submit" name="formsend" id="formsend" value="S'inscrire">
-          <p><?= $etat2 ?></p>
         </div>
 
     </form>
