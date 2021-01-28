@@ -34,8 +34,15 @@ class Database
         $db_user = $config['db_user'];
         $db_password = $config['db_password'];
 
-        $this->pdo = new PDO("$db_driver:host=$db_host;port=$db_port;dbname=$db_name", "$db_user", "$db_password");
-        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        try
+        {
+            $this->pdo = new PDO("$db_driver:host=$db_host;port=$db_port;dbname=$db_name", "$db_user", "$db_password");
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        }
+        catch(\PDOException $exception)
+        {
+            ExceptionHandler::raiseException($exception->getMessage(), $exception->getTrace());
+        }
     }
 
     /**

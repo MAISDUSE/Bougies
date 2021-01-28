@@ -7,8 +7,10 @@
 <body>
     <h1><?= $name ?></h1>
 
-    <p>
-        <?= $error ?>
-    </p>
+        <?php if(is_array($error)): ?>
+            <pre><?= print_r($error); ?></pre>
+        <?php else: ?>
+            <pre><?= $error ?></pre>
+        <?php endif; ?>
 </body>
 </html>

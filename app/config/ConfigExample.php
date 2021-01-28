@@ -20,9 +20,9 @@ class ConfigExample
         $config['db_driver'] = 'mysql';
         $config['db_host'] = '127.0.0.1';
         $config['db_port'] = '3306';
-        $config['db_name'] = 'table';
-        $config['db_user'] = 'user';
-        $config['db_password'] = 'pwd';
+        $config['db_name'] = 'bougies';
+        $config['db_user'] = 'root';
+        $config['db_password'] = '';
 
         $config['template_key'] = 'layout';
 
