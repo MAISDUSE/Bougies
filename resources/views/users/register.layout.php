@@ -11,7 +11,7 @@
 
       <h2>Inscription - Sign In</h2>
       <form method="post" class="infosconnexion" id="signin">
-        @csrf @csrf @csrf
+        @csrf
 
         <div class="">
           <label for="login">Login :</label>
