@@ -10,3 +10,9 @@
         <?php endforeach; ?>
     </ul>
 @endsection
+
+@section('scripts')
+<script>
+    toastr.success("Description du toast", "Titre", {progressBar: true, timeOut:5000, closeButton: true});
+</script>
+@endsection
