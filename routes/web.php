@@ -3,6 +3,13 @@
 use app\controllers\BougiesController;
 use app\controllers\IndexController;
 use app\controllers\UsersController;
+use app\controllers\AuteursController;
+use app\controllers\CollectionsController;
+use app\controllers\EventsController;
+use app\controllers\LivresController;
+use app\controllers\OdeursController;
+use app\controllers\RecettesController;
+
 use core\Route;
 
 
@@ -52,3 +59,22 @@ Route::get('/bougies/{id}/update', [BougiesController::class, 'update']);
 
 
 Route::get('/bougies/testInsert', [BougiesController::class, 'testInsert']);
+
+
+//AuteursController
+Route::get('/auteurs', AuteursController::class);
+
+//CollectionsController
+Route::get('/collections', CollectionsController::class);
+
+//EventsController
+Route::get('/events', EventsController::class);
+
+//LivresController
+Route::get('/livres', LivresController::class);
+
+//OdeursController
+Route::get('/odeurs', OdeursController::class);
+
+//RecettesController
+Route::get('/recettes', RecettesController::class);
