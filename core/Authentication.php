@@ -53,6 +53,7 @@ class Authentication
             'role' => 0
         ];
         $me = User::create($user);
+
         session_unset();
         $etat = $me->id;//"Le compte a été créé";
         $_SESSION['login'] = $login;
