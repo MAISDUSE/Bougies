@@ -45,13 +45,13 @@ class Application
 
         session_start();
 
-        $this->router = new Router();
-
         $this->config = Config::loadConfig();
 
-        $this->db = new Database($this->config);
+        $this->router = new Router();
 
         $this->response = new Response();
+
+        $this->db = new Database($this->config);
     }
 
     /**
@@ -60,10 +60,5 @@ class Application
     public function run()
     {
         $this->router->resolveRoute();
-    }
-
-    public static function base_url()
-    {
-        return self::$app->config['base_url'];
     }
 }

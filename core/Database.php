@@ -61,7 +61,9 @@ class Database
      */
     public function find(string $tableName, string $primaryKey, $elem)
     {
-        $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $primaryKey = '$elem'");
+        $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $primaryKey = :elem");
+
+        $this->bindValues($statement, ['elem' => $elem]);
 
         $statement->execute();
 
@@ -91,7 +93,7 @@ class Database
 
         $statement = $this->pdo->prepare("INSERT INTO $tableName ($attrs) VALUES ($values)");
 
-        $statement = $this->bindParams($statement, $newElem);
+        $this->bindValues($statement, $newElem);
 
         $statement->execute();
 
@@ -117,9 +119,10 @@ class Database
 
         $params = rtrim($params, ', ');
 
-        $statement = $this->pdo->prepare("UPDATE $tableName SET $params WHERE $primaryKey = '$elem'");
+        $statement = $this->pdo->prepare("UPDATE $tableName SET $params WHERE $primaryKey = :elem");
 
-        $statement = $this->bindParams($statement, $updatedElem);
+        $this->bindValues($statement, $updatedElem);
+        $this->bindValues($statement, ['elem' => $elem]);
 
         $statement->execute();
 
@@ -137,7 +140,11 @@ class Database
     {
         $backup = $this->find($tableName, $primaryKey, $elem);
 
-        $this->pdo->prepare("DELETE FROM $tableName WHERE $primaryKey = '$elem'")->execute();
+        $statement = $this->pdo->prepare("DELETE FROM $tableName WHERE $primaryKey = :elem");
+
+        $this->bindValues($statement, ['elem' => $elem]);
+
+        $statement->execute();
 
         return $backup;
     }
@@ -146,9 +153,8 @@ class Database
      * Associe les valeurs dans la requete préparée
      * @param object $statement Object PDO avec la requete
      * @param array $element Tableau associatif de l'élément à créer ou modifier
-     * @return object retourne le statement avec les paramètres ajoutés
      */
-    private function bindParams(object $statement, array $element): object
+    private function bindValues(object &$statement, array $element)
     {
         foreach ($element as $attr => $value)
         {
@@ -168,7 +174,5 @@ class Database
 
             $statement->bindValue(":$attr", $value, $param);
         }
-
-        return $statement;
     }
 }

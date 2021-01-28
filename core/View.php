@@ -11,21 +11,17 @@ class View
     /**
      * @var array $param Paramètres de la vue
      */
-    private array $param = [];
+    public array $param = [];
 
     /**
      * Constante du dossier ressources
      */
-    private const VIEW_FOLDER = __DIR__ . "/../resources/views/";
+    public const VIEW_FOLDER = __DIR__ . "/../resources/views/";
+    public string $template_key;
 
-    /**
-     * Assigne un paramètre à une vue
-     * @param string $varName Nom de la variable passée à la vue
-     * @param mixed $value Valeur de la variable passsée à la vue
-     */
-    function assign(string $varName, $value)
+    public function __construct()
     {
-        $this->param[$varName] = $value;
+        $this->template_key = Application::$app->config['template_key'];
     }
 
     /**
@@ -34,27 +30,79 @@ class View
      */
     function display(string $filename)
     {
-        if (!preg_match('#\.php$#', $filename)) $filename .= ".php";
+        $isTemplate = false;
+
+        if (!preg_match('#\.php$#', $filename))
+        {
+            $filename .= ".$this->template_key.php";
+            $isTemplate = true;
+        }
 
         $view = self::VIEW_FOLDER . $filename;
+
+        if (!is_file($view)) ExceptionHandler::raiseException("ViewNotFoundException", "The view $view does not exists.");
 
         foreach ($this->param as $key => $value)
         {
             $$key = $value;
         }
 
-        if (!file_exists($view)) ExceptionHandler::raiseException("ViewNotFoundException", "The view $view does not exists.");
+        ob_start();
 
-        $regex = "#" . Application::$app->config['template_key'] . ".php$#";
+        include $view;
 
-        if (preg_match($regex, $view))
+        if ($isTemplate)
         {
-            $this->renderWithTemplate($filename);
+            $view = ob_get_contents();
+            ob_clean();
+
+            // ======== CSRF TOKENS ==========
+            $token = $_SESSION['csrf'];
+            $view = str_replace("@csrf", "<input type=\"hidden\" value=\"$token\" name=\"csrf\">", $view);
+
+
+            // ======== VIEW EXTENSION ==========
+            if (preg_match("#^@extends\('([^']+)'\)#", $view, $matches))
+            {
+                $extendedView = self::VIEW_FOLDER . $matches[1]  . ".$this->template_key.php";
+
+                if (!is_file($extendedView))
+                {
+                    ob_end_clean();
+                    ExceptionHandler::raiseException("ViewNotFoundException", "The view $extendedView does not exists.");
+                }
+
+                $view = str_replace("$matches[0]", '', $view);
+
+                include $extendedView;
+
+                $extendedView = ob_get_contents();
+                ob_clean();
+
+                if (preg_match_all("#@yield\('([^']+)'\)#", $extendedView, $yields))
+                {
+                    foreach ($yields[1] as $sectionName)
+                    {
+                        if (preg_match("#@section\('$sectionName'\)(.+?)@endsection#s", $view, $section))
+                        {
+                            $extendedView = str_replace("@yield('$sectionName')", $section[1], $extendedView);
+                        }
+                        else
+                        {
+                            $extendedView = str_replace("@yield('$sectionName')", '', $extendedView);
+                        }
+                    }
+                }
+
+                echo $extendedView;
+            }
+            else
+            {
+                echo $view;
+            }
         }
-        else
-        {
-            include $view;
-        }
+
+        ob_end_flush();
     }
 
     /**
@@ -62,24 +110,16 @@ class View
      * @param string $filename Nom de la vue
      * @param array $param Paramètres de la vue
      */
-    public function render(string $filename, $param = array())
+    public function render(string $filename, $param = [])
     {
         $param['csrf'] = $_SESSION['csrf'];
+
         foreach ($param as $key => $value)
         {
-            $this->assign($key, $value);
+            $this->param[$key] = $value;
         }
 
         $this->display($filename);
-    }
-
-    /**
-     * Génère la vue après parsing des templates
-     * @param string $view nom de la vue passée en paramètre
-     */
-    private function renderWithTemplate(string $view)
-    {
-        (new Builder($view))->make();
     }
 
     /**
@@ -91,11 +131,13 @@ class View
     public function showError(int $code, string $title, string $text = null)
     {
         Application::$app->response->setStatusCode($code);
-        $this->render("errors/$code", [
+
+        $this->render("errors/$code.php", [
             'code' => $code,
             'title' => $title,
             'text' => $text
         ]);
+
         exit;
     }
 

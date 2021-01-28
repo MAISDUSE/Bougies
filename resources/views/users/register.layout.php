@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>User Register</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/css/temp.css">
   </head>
   <body>
     <section id="sectionRegister">
@@ -11,11 +11,11 @@
 
       <h2>Inscription - Sign In</h2>
       <form method="post" class="infosconnexion" id="signin">
-        <input type="hidden" value="<?= $csrf ?>" name="csrf">
+        @csrf @csrf @csrf
 
         <div class="">
           <label for="login">Login :</label>
-          <input type="text" name="login" placeholder="Votre Login" required>
+          <input type="text" name="login" id="login" placeholder="Votre Login" required>
         </div>
 
         <div class="">

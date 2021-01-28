@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8">
     <title>User Login</title>
-    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/css/temp.css">
   </head>
   <body>
     <section id="sectionLogin">
 
 
         <h2>Connexion - Log In</h2>
-        <form action="" method="post" class="infosconnexion" id="login">
-            <input type="hidden" value="<?= $csrf ?>" name="csrf">
+        <form action="" method="post" class="infosconnexion" id="loginForm">
+            @csrf
           <div class="">
             <label for="login">Login: </label>
             <input type="text" name="login" id="login" placeholder="Votre login" required>

@@ -37,6 +37,7 @@ Route::post('/logout', [UsersController::class, 'logout']);
 Route::get('/logout', function() {
    session_unset();
    session_destroy();
+   \core\Application::$app->response->redirect('/login');
 });
 
 
