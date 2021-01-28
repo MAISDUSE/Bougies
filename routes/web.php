@@ -63,6 +63,14 @@ Route::get('/bougies/testInsert', [BougiesController::class, 'testInsert']);
 
 //AuteursController
 Route::get('/auteurs', AuteursController::class);
+Route::get('/auteurs/add', [AuteursController::class, 'addForm']);
+Route::post('/auteurs/add', [AuteursController::class, 'add']);
+
+Route::get('/auteurs/{id}/update', [AuteursController::class, 'updateForm']);
+Route::post('/auteurs/{id}/update', [AuteursController::class, 'update']);
+
+Route::get('/auteurs/{id}/delete', [AuteursController::class, 'deleteForm']);
+Route::post('/auteurs/{id}/delete', [AuteursController::class, 'delete']);
 
 //CollectionsController
 Route::get('/collections', CollectionsController::class);
