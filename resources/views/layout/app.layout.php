@@ -35,9 +35,11 @@
                 <a href="/" class="nav-link">Accueil</a>
             </li>
 
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="/admin" class="nav-link">Admin</a>
-            </li>
+            <?php if (\core\Authentication::can("admin")): ?>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/admin" class="nav-link">Admin</a>
+                </li>
+            <?php endif; ?>
         </ul>
 
         <ul class="navbar-nav ml-auto pr-3">
@@ -94,14 +96,16 @@
 
                     <li class="nav-header">TABLEAU DE BORD</li>
 
-                    <li class="nav-item">
-                        <a href="/admin" class="nav-link">
-                            <i class="nav-icon fas fa-user-shield"></i>
-                            <p>
-                                Panel admin
-                            </p>
-                        </a>
-                    </li>
+                    <?php if (\core\Authentication::can("admin")): ?>
+                        <li class="nav-item">
+                            <a href="/admin" class="nav-link">
+                                <i class="nav-icon fas fa-user-shield"></i>
+                                <p>
+                                    Panel admin
+                                </p>
+                            </a>
+                        </li>
+                    <?php endif; ?>
 
                     <li class="nav-item">
                         <a href="/" class="nav-link">
@@ -112,6 +116,7 @@
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-compass"></i>
@@ -171,20 +176,23 @@
                             </li>
                         </ul>
                     </li>
+                    <?php endif; ?>
                     <!-- end treeview -->
+
 
                     <li class="nav-header">AUTEURS</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-user-graduate"></i>
                             <p>
                                 Liste des auteurs
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -193,7 +201,11 @@
                             </p>
                         </a>
                     </li>
+
+                    <?php endif; ?>
                     <!-- end link -->
+
+
 
                     <li class="nav-header">BOUGIES</li>
 
@@ -207,6 +219,7 @@
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/bougies/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -215,20 +228,25 @@
                             </p>
                         </a>
                     </li>
+
+                    <?php endif; ?>
                     <!-- end link -->
+
+
 
                     <li class="nav-header">COLLECTIONS</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-books"></i>
                             <p>
                                 Liste des collections
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -237,20 +255,23 @@
                             </p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <!-- end link -->
+
 
                     <li class="nav-header">EVÈNEMENTS</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-calendar-day"></i>
                             <p>
                                 Liste des évènements
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -259,20 +280,24 @@
                             </p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <!-- end link -->
+
+
 
                     <li class="nav-header">LIVRES</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Liste des livres
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -281,20 +306,23 @@
                             </p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <!-- end link -->
+
 
                     <li class="nav-header">ODEURS</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-humidity"></i>
                             <p>
                                 Liste des odeurs
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -303,20 +331,23 @@
                             </p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <!-- end link -->
+
 
                     <li class="nav-header">RECETTES</li>
 
                     <!-- link -->
                     <li class="nav-item">
                         <a href="/auteurs" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-hat-chef"></i>
                             <p>
                                 Liste des recettes
                             </p>
                         </a>
                     </li>
 
+                    <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
                         <a href="/auteurs/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
@@ -325,6 +356,7 @@
                             </p>
                         </a>
                     </li>
+                    <?php endif; ?>
                     <!-- end link -->
 
                     <li class="nav-header"></li> <!-- vide pour rajouter une marge constante en bas de la barre de nav -->

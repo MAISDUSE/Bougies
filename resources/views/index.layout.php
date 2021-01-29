@@ -17,6 +17,7 @@
             <div class="icon">
                 <i class="fas fa-candle-holder"></i>
             </div>
+
             <a href="/bougies" class="small-box-footer">Liste des bougies <i class="fas fa-arrow-circle-right"></i></a>
         </div>
     </div>

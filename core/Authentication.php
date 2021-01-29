@@ -22,9 +22,14 @@ class Authentication
         "admin" => "Gérer les utilisateurs"
     ];
 
-    public static function can(int $minPerm, int $idUser = 0): bool
+    public static function can($minPerm, int $idUser = 0): bool
     {
-        if (!isset($_SESSION['id'])) Application::$app->response->redirect('/login');
+        if (is_string($minPerm))
+        {
+            $minPerm = self::PERMISSIONS[$minPerm];
+        }
+
+        if (!isset($_SESSION['id'])) return false;
 
         $can = false;
         $role = $idUser;

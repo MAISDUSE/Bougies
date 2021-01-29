@@ -8,10 +8,12 @@
         <div class="card-header">
             <h3 class="card-title">
                 Liste des bougies
-                <a class="btn btn-success btn-sm ml-3" href="/bougies/add">
-                    <i class="fas fa-plus-circle"></i>
-                    Ajouter
-                </a>
+                <?php if(\core\Authentication::can("add")): ?>
+                    <a class="btn btn-success btn-sm ml-3" href="/bougies/add">
+                        <i class="fas fa-plus-circle"></i>
+                        Ajouter
+                    </a>
+                <?php endif; ?>
             </h3>
 
             <div class="card-tools">
@@ -69,18 +71,26 @@
                             <?php endif; ?>
                         </td>
                         <td class="project-actions text-right">
+
                             <a class="btn btn-info btn-sm" href="/bougies/<?= $bougie->id_bougie ?>">
                                 <i class="fas fa-search"></i>
                                 Détails
                             </a>
-                            <a class="btn btn-primary btn-sm" href="/bougies/<?= $bougie->id_bougie ?>/update">
-                                <i class="fas fa-pencil-alt"></i>
-                                Modifier
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="/bougies/<?= $bougie->id_bougie ?>/delete">
-                                <i class="fas fa-trash"></i>
-                                Supprimer
-                            </a>
+
+                            <?php if(\core\Authentication::can("edit")): ?>
+                                <a class="btn btn-primary btn-sm" href="/bougies/<?= $bougie->id_bougie ?>/update">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Modifier
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if(\core\Authentication::can("delete")): ?>
+                                <a class="btn btn-danger btn-sm" href="/bougies/<?= $bougie->id_bougie ?>/delete">
+                                    <i class="fas fa-trash"></i>
+                                    Supprimer
+                                </a>
+                            <?php endif; ?>
+
                         </td>
                     </tr>
                 <?php endforeach; ?>
