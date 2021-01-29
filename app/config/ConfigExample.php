@@ -15,7 +15,7 @@ class ConfigExample
      * Retourne la configuration
      * @return array $config Configuration utilisé par la classe Application
      */
-    public static function loadConfig() : array
+    public static function loadConfig(): array
     {
         $config['db_driver'] = 'mysql';
         $config['db_host'] = '127.0.0.1';
@@ -25,6 +25,7 @@ class ConfigExample
         $config['db_password'] = '';
 
         $config['template_key'] = 'layout';
+        $config['debug'] = true;
 
         return $config;
     }

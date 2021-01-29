@@ -8,10 +8,18 @@ class ExceptionHandler
 {
     public static function raiseException(string $name, $error)
     {
-        (new View())->render("errors/exception.php", [
-            'name' => $name,
-            'error' => $error
-        ]);
+        Application::$app->response->setStatusCode(500);
+        if(Application::$app->config['debug'])
+        {
+            (new View())->render("errors/exception.debug.php", [
+                'name' => $name,
+                'error' => $error
+            ]);
+        }
+        else
+        {
+            (new View())->render("errors/exception.php");
+        }
 
         exit;
     }

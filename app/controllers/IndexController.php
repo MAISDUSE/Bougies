@@ -2,20 +2,21 @@
 
 namespace app\controllers;
 
+use app\models\Auteur;
 use app\models\Bougie;
 use app\models\Event;
+use app\models\Livre;
 use \core\Controller;
 
 class IndexController extends Controller
 {
     public function index()
     {
-        $data1 = "Ceci est ma première donnée via render";
-        $data2 = [1,2,3,4,5,6,7,8,9];
-
         $this->view->render("index", [
-            "param1" => $data1, //variable simple
-            "param2" => $data2 //tableau entier
+            "nbBougies" => Bougie::count(),
+            "nbLivres" => Livre::count(),
+            "nbAuteurs" => Auteur::count(),
+            "nbEvents" => Event::count()
         ]);
 
         //return $this->view->display("layout/app.layout.php");
@@ -30,13 +31,6 @@ class IndexController extends Controller
     public function events()
     {
         $this->view->render("layout/app", ["param1" => Event::all(), "param2" => []]);
-    }
-
-    public function bougies()
-    {
-        $this->view->render("bougies/index",[
-           'bougies' => Bougie::all()
-        ]);
     }
 
     public function getBougie($bougieid)

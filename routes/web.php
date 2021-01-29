@@ -7,8 +7,9 @@ use app\controllers\AuteursController;
 use app\controllers\CollectionsController;
 use app\controllers\EventsController;
 use app\controllers\LivresController;
-use app\controllers\OdeursController;
 use app\controllers\RecettesController;
+
+use app\controllers\AdminController;
 
 use core\Route;
 
@@ -19,51 +20,31 @@ use core\Route;
         Controller (méthode par défaut appelée [index])
         [Controller, method]
         fonction anonyme : function () {}
+
+    Route::get('/test', function () {
+        echo "Test function !<br>";
+    });
 */
 
 
 Route::get('/', IndexController::class);
 
-Route::get('/test', function () {
-    echo "Test function !<br>";
-});
-
-
-Route::get('/contact', [IndexController::class, 'contact']);
-Route::post('/contact', [IndexController::class, 'sendMail']);
 
 //users
+Route::get('/user', [UsersController::class, 'show']);
 Route::get('/users/{id}', [UsersController::class, 'show']);
-Route::post('/login', [UsersController::class, 'login']);
+
 Route::get('/login', [UsersController::class, 'loginForm']);
-Route::post('/register', [UsersController::class, 'register']);
 Route::get('/register', [UsersController::class, 'registerForm']);
-Route::get('/users', [UsersController::class, 'me']);
-Route::post('/logout', [UsersController::class, 'logout']);
 
-Route::get('/logout', function() {
-   session_unset();
-   session_destroy();
-   \core\Application::$app->response->redirect('/login');
-});
+Route::post('/login', [UsersController::class, 'login']);
+Route::post('/register', [UsersController::class, 'register']);
 
-
-Route::get('/events/{id}', [IndexController::class, 'showEvent']);
-
-Route::get('/events', [IndexController::class, 'events']);
-
-Route::get('/bougies', [IndexController::class, 'bougies']);
-Route::get('/bougies/{id}', [IndexController::class, 'getBougie']);
-Route::get('/bougies/{id}/delete', [BougiesController::class, 'delete']);
-Route::get('/bougies/{id}/update', [BougiesController::class, 'update']);
-
-
-Route::get('/bougies/testInsert', [BougiesController::class, 'testInsert']);
+Route::get('/logout', [UsersController::class, 'logout']);
 
 
 //AuteursController
 Route::get('/auteurs', AuteursController::class);
-
 
 Route::get('/auteurs/add', [AuteursController::class, 'addForm']);
 Route::post('/auteurs/add', [AuteursController::class, 'add']);
@@ -74,9 +55,21 @@ Route::post('/auteurs/{id}/update', [AuteursController::class, 'update']);
 Route::get('/auteurs/{id}/delete', [AuteursController::class, 'deleteForm']);
 Route::post('/auteurs/{id}/delete', [AuteursController::class, 'delete']);
 
+
+//BougiesController
+Route::get('/bougies',BougiesController::class);
+
+Route::get('/bougies/{id}', [BougiesController::class, 'show']);
+
+Route::get('/bougies/{id}/update', [BougiesController::class, 'updateForm']);
+Route::post('/bougies/{id}/update', [BougiesController::class, 'update']);
+
+Route::get('/bougies/{id}/delete', [BougiesController::class, 'deleteForm']);
+Route::post('/bougies/{id}/delete', [BougiesController::class, 'delete']);
+
+
 //CollectionsController
 Route::get('/collections', CollectionsController::class);
-
 
 Route::get('/collections/add', [CollectionsController::class, 'addForm']);
 Route::post('/collections/add', [CollectionsController::class, 'add']);
@@ -90,12 +83,18 @@ Route::post('/collections/{id}/delete', [CollectionsController::class, 'delete']
 
 //EventsController
 Route::get('/events', EventsController::class);
+Route::get('/events/{id}', [EventsController::class, 'show']);
 
 //LivresController
 Route::get('/livres', LivresController::class);
 
 //OdeursController
-Route::get('/odeurs', OdeursController::class);
+Route::get('/odeurs', AdminController::class);
 
 //RecettesController
 Route::get('/recettes', RecettesController::class);
+
+
+
+//AdminController
+Route::get('/admin', AdminController::class);

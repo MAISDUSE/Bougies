@@ -7,7 +7,20 @@ use core\Controller;
 
 class BougiesController extends Controller
 {
-    public function testInsert()
+
+    public function index()
+    {
+        $this->view->render("bougies/index",[
+            'bougies' => Bougie::all()
+        ]);
+    }
+
+    public function addForm()
+    {
+
+    }
+
+    public function add()
     {
         $bougie = [
             'nom_bougie' => "test ddddzad",
@@ -22,11 +35,18 @@ class BougiesController extends Controller
         ]);
     }
 
-    public function delete($id)
+    public function show($id)
     {
-        Bougie::delete($id);
+        $this->view->render("bougies/show", [
+            'bougie' => Bougie::find($id)
+        ]);
+    }
 
-        $this->redirect("/bougies");
+    public function updateForm($id)
+    {
+        $this->view->render("bougies/edit", [
+            'bougie' => Bougie::find($id)
+        ]);
     }
 
     public function update($id)
@@ -38,5 +58,19 @@ class BougiesController extends Controller
         Bougie::update($id, $bougie);
 
         $this->redirect("/bougies/$id");
+    }
+
+    public function deleteForm($id)
+    {
+        $this->view->render("bougies/delete", [
+            'bougie' => Bougie::find($id)
+        ]);
+    }
+
+    public function delete($id)
+    {
+        Bougie::delete($id);
+
+        $this->redirect("/bougies");
     }
 }

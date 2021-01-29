@@ -70,7 +70,16 @@ class Router
             (new View())->show404();
         }
 
-        call_user_func_array($callback, $this->args);
+        try
+        {
+            call_user_func_array($callback, $this->args);
+        }
+        catch (\Exception $exception)
+        {
+            ExceptionHandler::raiseException($exception->getMessage(), $exception->getTrace());
+        }
+
+        restore_error_handler();
     }
 
     /**

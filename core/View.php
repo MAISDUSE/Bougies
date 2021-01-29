@@ -40,7 +40,17 @@ class View
 
         $view = self::VIEW_FOLDER . $filename;
 
-        if (!is_file($view)) ExceptionHandler::raiseException("ViewNotFoundException", "The view $view does not exists.");
+        if (!is_file($view)) ExceptionHandler::raiseException("ViewNotFoundException - The view $view does not exists.", debug_backtrace());
+
+        if (isset($_SESSION['old']))
+        {
+            foreach ($_SESSION['old'] as $key => $value)
+            {
+                $$key = $value;
+            }
+
+            unset($_SESSION['old']);
+        }
 
         foreach ($this->param as $key => $value)
         {
@@ -69,7 +79,7 @@ class View
                 if (!is_file($extendedView))
                 {
                     ob_end_clean();
-                    ExceptionHandler::raiseException("ViewNotFoundException", "The view $extendedView does not exists.");
+                    ExceptionHandler::raiseException("ViewNotFoundException - The view $extendedView does not exists.", debug_backtrace());
                 }
 
                 $view = str_replace("$matches[0]", '', $view);
@@ -78,6 +88,20 @@ class View
 
                 $extendedView = ob_get_contents();
                 ob_clean();
+
+                $flashdata = "";
+
+                if (isset($_SESSION['flash']))
+                {
+                    foreach ($_SESSION['flash'] as $flash)
+                    {
+                        $flashdata .= $flash;
+                    }
+
+                    unset($_SESSION['flash']);
+                }
+
+                $extendedView = str_replace("@flashdata", $flashdata, $extendedView);
 
                 if (preg_match_all("#@yield\('([^']+)'\)#", $extendedView, $yields))
                 {
@@ -132,7 +156,7 @@ class View
     {
         Application::$app->response->setStatusCode($code);
 
-        $this->render("errors/$code.php", [
+        $this->render("errors/error", [
             'code' => $code,
             'title' => $title,
             'text' => $text
@@ -146,6 +170,6 @@ class View
      */
     public function show404()
     {
-        $this->showError(404, "Page non trouvée", "La page que vous cherchez n'existe pas <a href='/'>Retour à l'accueil</a>");
+        $this->showError(404, "Page non trouvée", "La page que vous recherchez n'existe pas.");
     }
 }

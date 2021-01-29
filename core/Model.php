@@ -30,15 +30,25 @@ abstract class Model
     }
 
     /**
+     * Compte tous les éléments d'une table
+     * @return integer nombre d'éléments dans la table
+     */
+    public static function count() : int
+    {
+        return Application::$app->db->countAll(static::$table);
+    }
+
+    /**
      * Recherche un élément dans la BDD
-     * @param mixed $elem identifiant de l'élément à rechercher, le type dépend de la table
-     * @return false|mixed retourne l'élément trouvé si il existe
+     * @param mixed $elem identifiant de l'élément à rechercher
+     * @return mixed retourne l'élément trouvé si il existe
      */
     public static function find($elem)
     {
         $found = Application::$app->db->find(static::$table, static::$primaryKey, $elem);
 
         if ($found === false) (new View())->show404();
+
         return $found;
     }
 
@@ -53,7 +63,14 @@ abstract class Model
         return Application::$app->db->save(static::$table, static::$primaryKey, $newElem);
     }
 
-    public static function update($elem, $updatedElem)
+    /**
+     * Met à jour un élément de la BDD
+     * Retourne l'élément modifié
+     * @param mixed $elem Identifiant de l'élément à modifier
+     * @param array $updatedElem Tableau associatif des attributs à modifier
+     * @return mixed retourne une instance de l'élément modifié
+     */
+    public static function update($elem, array $updatedElem)
     {
         return Application::$app->db->update(static::$table, static::$primaryKey, $elem, $updatedElem);
     }

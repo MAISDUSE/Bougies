@@ -60,6 +60,20 @@ class Database
     }
 
     /**
+     * Compe toutes les entrées d'une table
+     * @param string $tableName Nom de la table
+     * @return integer Nombre d'éléments dans la table
+     */
+    public function countAll(string $tableName): int
+    {
+        $statement = $this->pdo->prepare("SELECT COUNT(*) AS number FROM $tableName");
+
+        $statement->execute();
+
+        return intval($statement->fetch(PDO::FETCH_OBJ)->number);
+    }
+
+    /**
      * Trouve un élément dans une table à partir de sa clé primaire
      * @param string $tableName Nom de la table
      * @param string $primaryKey Clé primaire de la table
