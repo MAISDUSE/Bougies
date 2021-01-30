@@ -6,6 +6,16 @@ use core\Model;
 
 class Recette extends Model
 {
-    protected static string $table = 'recette';
-    protected static string $primaryKey = 'id_recette';
+    protected string $table = 'recette';
+    protected string $primaryKey = 'id_recette';
+
+    public function odeur()
+    {
+        return $this->has(Odeur::class, $this->id_odeur);
+    }
+
+    public function bougie()
+    {
+        return $this->belongsTo(Bougie::class, $this->id_bougie);
+    }
 }

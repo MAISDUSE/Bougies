@@ -1,33 +1,82 @@
 @extends('layout/app')
 
 
-
 @section('content')
-    <h2>Auteur - Liste</h2>
+<section class="content">
 
+    <!-- Default box -->
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Liste des auteurs
+                <?php if(\core\Authentication::can("add")): ?>
+                    <a class="btn btn-success btn-sm ml-3" href="/auteurs/add">
+                        <i class="fas fa-plus-circle"></i>
+                        Ajouter
+                    </a>
+                <?php endif; ?>
+            </h3>
 
-    <!--show + buttons-->
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body p-0" style="display: block;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="width: 1%">
+                        #
+                    </th>
+                    <th style="width: 25%">
+                        Nom
+                    </th>
+                    <th class="text-right" style="width: 20%">
+                        Actions
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($auteurs as $auteur): ?>
+                    <tr>
+                        <td>
+                            <?= $auteur->id_auteur ?>
+                        </td>
+                        <td>
+                            <?= htmlspecialchars($auteur->nom_auteur) ?>
+                        </td>
+                        <td class="project-actions text-right">
 
-    <table>
-    <caption>All the autors - <a href="./auteurs/add">New</a></caption>
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Auteur</th>
-            <th scope="col">Update</th>
-            <th scope="col">Delete</th>
-        </tr>
-    </thead>
-    <?php foreach ($auteurs as $key => $value): ?>
-        <tr>
-            <td scope="col"><?= $key ?></td>
-            <td scope="col"><?= $value->nom_auteur ?></td>
-            <td scope="col"><a href="./auteurs/<?=$value->id_auteur?>/update">Update</a></td>
-            <td scope="col"><a href="./auteurs/<?=$value->id_auteur?>/delete">Delete</a></td>
-        </tr>
-    <?php endforeach; ?>
-    </table>
+                            <a class="btn btn-info btn-sm" href="/auteurs/<?= $auteur->id_auteur ?>">
+                                <i class="fas fa-search"></i>
+                                Détails
+                            </a>
 
+                            <?php if(\core\Authentication::can("edit")): ?>
+                                <a class="btn btn-primary btn-sm" href="/auteurs/<?= $auteur->id_auteur ?>/update">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    Modifier
+                                </a>
+                            <?php endif; ?>
 
+                            <?php if(\core\Authentication::can("delete")): ?>
+                                <a class="btn btn-danger btn-sm" href="/auteurs/<?= $auteur->id_auteur ?>/delete">
+                                    <i class="fas fa-trash"></i>
+                                    Supprimer
+                                </a>
+                            <?php endif; ?>
 
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
+    <!-- /.card -->
+
+</section>
 @endsection

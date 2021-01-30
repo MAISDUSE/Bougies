@@ -9,80 +9,167 @@ namespace core;
 abstract class Model
 {
     /**
-     * Nom de la table associée au model dans la bdd
-     * @var string $table
+     * @var string $table Nom de la table en BDD
      */
-    protected static string $table;
+    protected string $table;
 
     /**
-     * Clé primaire de la table associée au Model
-     * @var string $primaryKey
+     * @var string $primaryKey Nom de la clé primaire de la table
      */
-    protected static string $primaryKey;
+    protected string $primaryKey;
 
     /**
-     * Récupère tous les éléments d'une table
-     * @return array
+     * Sélectionne toutes les entrées de la table
+     * @return array Tableau de Model
      */
-    public static function all() : array
+    public static function all(): array
     {
-        return Application::$app->db->selectAll(static::$table);
+        return Application::$app->db->selectAll((new static)->table, static::class);
     }
 
     /**
-     * Compte tous les éléments d'une table
-     * @return integer nombre d'éléments dans la table
+     * Selectionne selon la (les) colonne
+     * @param string $selection Nom de la colonne passée en paramètre
+     * @return array Tableau de model
      */
-    public static function count() : int
+    public static function select(string $selection)
     {
-        return Application::$app->db->countAll(static::$table);
+        return Application::$app->db->select($selection, (new static)->table, static::class);
     }
 
     /**
-     * Recherche un élément dans la BDD
-     * @param mixed $elem identifiant de l'élément à rechercher
-     * @return mixed retourne l'élément trouvé si il existe
+     * Compte le nombre d'entrées dans la base
+     * @return int Nombre d'entrées
      */
-    public static function find($elem)
+    public static function count(): int
     {
-        $found = Application::$app->db->find(static::$table, static::$primaryKey, $elem);
-
-        if ($found === false) (new View())->show404();
-
-        return $found;
+        return Application::$app->db->countAll((new static)->table);
     }
 
     /**
-     * Crée un nouvel élément en BDD
-     * Retourne l'élément créé
-     * @param array $newElem Tableau associatif représentant le nouvel élément à créer
-     * @return mixed Retourne l'élément créé
+     * Cherche un élément dans la base selon sa clé primaire
+     * @param mixed $elemId identifiant de l'élément
+     * @return mixed Instance du model représenté par l'élément ou false si pas trouvé
+     */
+    public static function find($elemId)
+    {
+        $model = new static;
+        $model = Application::$app->db->find($model->table, $model->primaryKey, $elemId, $model);
+        return $model;
+    }
+
+    /**
+     * Récupère toutes les entrées correspondantes à la condition col = elemId
+     * @param string $columnName Nom de la colone sur laquelle le where est appliqué
+     * @param mixed $elemId Identifiant de l'élément à rechercher
+     * @return array Tableau de Model
+     */
+    public static function where(string $columnName, $elemId): array
+    {
+        return Application::$app->db->where((new static)->table, $columnName, $elemId, static::class);
+    }
+
+    /**
+     * Execute la fonction find, si l'élément cherché n'existe pas, affiche une erreur
+     * @param mixed $elemId Identifiant de l'élément recherché
+     * @return mixed Retourne une instance du Model
+     */
+    public static function findOrFail($elemId)
+    {
+        $elem = static::find($elemId);
+
+        if ($elem === false) (new View())->show404();
+
+        return $elem;
+    }
+
+    /**
+     * Détermine l'unicité d'un élément
+     * @param mixed $elemId Identifiant de l'élément à prouver
+     * @param mixed $colName Nom de la colonne sur laquelle chercher
+     * @return bool Vrai si l'élément recherché n'existe pas en BDD
+     */
+    public static function unique($elemId, $colName = null): bool
+    {
+        $colName ?? (new static)->primaryKey;
+
+        $elt = static::where($colName, $elemId);
+
+        return count($elt) === 0;
+    }
+
+    /**
+     * Crée un élément en BDD et retourne une instance de Model de l'élément créé
+     * @param array $newElem Tableau associatif représentant le nouvel élément
+     * @return mixed instance de model de l'élément créé
      */
     public static function create(array $newElem)
     {
-        return Application::$app->db->save(static::$table, static::$primaryKey, $newElem);
+        $lastId = Application::$app->db->save((new static)->table, $newElem);
+
+        return static::find($lastId);
     }
 
     /**
-     * Met à jour un élément de la BDD
-     * Retourne l'élément modifié
-     * @param mixed $elem Identifiant de l'élément à modifier
-     * @param array $updatedElem Tableau associatif des attributs à modifier
-     * @return mixed retourne une instance de l'élément modifié
+     * Modifie un élément en BDD et retourne une instance de Model de l'élément modifié
+     * @param mixed $elemId Identifiant de l'élément à modifier
+     * @param array $newElem Tableau associatif des attributs à modifier
+     * @return mixed Instance de Model de l'élément modifié
      */
-    public static function update($elem, array $updatedElem)
+    public static function update($elemId, array $newElem)
     {
-        return Application::$app->db->update(static::$table, static::$primaryKey, $elem, $updatedElem);
+        $model = new static;
+
+        Application::$app->db->update($model->table, $model->primaryKey, $elemId, $newElem);
+
+        $model = static::find($elemId);
+
+        return $model;
     }
 
     /**
-     * Supprime l'élément de la BDD
-     * Retourne l'élément supprimé
-     * @param mixed $elem identifiant de l'élément à rechercher, le type dépend de la table
-     * @return mixed Retourne l'élément supprimé
+     * Supprime un élément en BDD et retourne une instance de model de l'élément supprimé
+     * @param mixed $elemId Identifiant de l'élément à supprimer
+     * @return mixed Instance de Model de l'élément supprimé
      */
-    public static function delete($elem)
+    public static function delete($elemId)
     {
-        return Application::$app->db->delete(static::$table, static::$primaryKey, $elem);
+        $model = static::findOrFail($elemId);
+
+        Application::$app->db->delete($model->table, $model->primaryKey, $elemId);
+
+        return $model;
+    }
+
+    /**
+     * Défini une relation d'appartenance à un autre Model
+     * @param string $model Model auquel l'instance du Model courant appartient
+     * @param mixed $foreignKeyValue Valeur de la colonne de la clé étrangère
+     * @return mixed Instance du Model auquel le Model courant appartient
+     */
+    public function belongsTo(string $model, $foreignKeyValue)
+    {
+        return $model::find($foreignKeyValue);
+    }
+
+    /**
+     * Défini une relation de possession d'un autre Model
+     * @param string $model Model que l'instance du model courant possède
+     * @return mixed instance du Model que le Model courant possède
+     */
+    public function has(string $model)
+    {
+        return $this->hasMany($model)[0];
+    }
+
+    /**
+     * Défini une relation de possession de plusieurs autres Model
+     * @param string $model Models que l'instance du model courant possède
+     * @return mixed Tableau des instances des Model que le Model courant possède
+     */
+    public function hasMany(string $model)
+    {
+        $pk = $this->primaryKey;
+        return $model::where($this->primaryKey, $this->$pk);
     }
 }

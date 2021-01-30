@@ -14,8 +14,8 @@ class Database
 
     /**
      * Database constructor.
-     * Initialise database connection from config
-     * @param array $config retrieve database configuration
+     * Initialise la connexion à la BDD à partir de la config
+     * @param array $config tableau de configuration
      */
     public function __construct(array $config)
     {
@@ -48,15 +48,57 @@ class Database
     /**
      * Récupère toutes les entrées d'une table
      * @param string $tableName Nom de la table
+     * @param string $model nom du Model pour le tableau de retour
      * @return array Tableau d'objets correspondants à la requete
      */
-    public function selectAll(string $tableName): array
+    public function selectAll(string $tableName, string $model): array
     {
         $statement = $this->pdo->prepare("SELECT * FROM $tableName");
 
+        $statement->setFetchMode(PDO::FETCH_CLASS, $model);
+
         $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_OBJ);
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Récupère toutes les entrées d'une table selon la (les) colonne
+     * @param string $column Nom de la ou des colonnes
+     * @param string $tableName Nom de la table
+     * @param string $model Nom du Model pour le tableau de retour
+     * @return array Tableau de Model
+     */
+    public function select(string $column, string $tableName, string $model): array
+    {
+        $statement = $this->pdo->prepare("SELECT $column FROM $tableName");
+
+        $statement->setFetchMode(PDO::FETCH_CLASS, $model);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Récupère toutes les entrées correspondantes à la condition col = elemId
+     * @param string $tableName Nom de la table
+     * @param string $colName Nom de la colone sur laquelle le where est appliqué
+     * @param mixed $elem Identifiant de l'élément à rechercher
+     * @param string $model Nom du modèle pour le tableau de retour
+     * @return array Tableau de Model
+     */
+    public function where(string $tableName, string $colName, $elem, string $model): array
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $colName = :elem");
+
+        $this->bindValues($statement, ['elem' => $elem]);
+
+        $statement->setFetchMode(PDO::FETCH_CLASS, $model);
+
+        $statement->execute();
+
+        return $statement->fetchAll();
     }
 
     /**
@@ -74,31 +116,33 @@ class Database
     }
 
     /**
-     * Trouve un élément dans une table à partir de sa clé primaire
+     * Trouve un élément dans une table à partir de sa colonne de référence
      * @param string $tableName Nom de la table
-     * @param string $primaryKey Clé primaire de la table
+     * @param string $columnName Nom de la colonne de la table
      * @param mixed $elem identifiant de l'élément
-     * @return mixed retourne une instance de l'entrée récupérée ou false sinon
+     * @param Model $model
+     * @return mixed retourne une instance du model false sinon
      */
-    public function find(string $tableName, string $primaryKey, $elem)
+    public function find(string $tableName, string $columnName, $elem, Model $model)
     {
-        $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $primaryKey = :elem");
+        $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $columnName = :elem");
 
         $this->bindValues($statement, ['elem' => $elem]);
 
+        $statement->setFetchMode(PDO::FETCH_INTO, $model);
+
         $statement->execute();
 
-        return $statement->fetch(PDO::FETCH_OBJ);
+        return $statement->fetch();
     }
 
     /**
-     * Crée un élément en base de donnée et retourne l'élément créé
+     * Crée un élément en base de donnée et retourne l'id de l'élément créé
      * @param string $tableName Nom de la table
-     * @param string $primaryKey Clé primaire de la table
      * @param array $newElem Tableau associatif représentant le nouvel élément
      * @return mixed retourne une instance de l'élément créé
      */
-    public function save(string $tableName, string $primaryKey, array $newElem)
+    public function save(string $tableName, array $newElem): int
     {
         $attrs = '';
         $values = '';
@@ -118,7 +162,7 @@ class Database
 
         $statement->execute();
 
-        return $this->find($tableName, $primaryKey, $this->pdo->lastInsertId());
+        return $this->pdo->lastInsertId();
     }
 
     /**
@@ -127,7 +171,6 @@ class Database
      * @param string $primaryKey Clé primaire
      * @param mixed $elem identifiant de l'élément à modifier
      * @param array $updatedElem Tableau associatif des attributs à modifier
-     * @return mixed retourne une instance de l'élément modifié
      */
     public function update(string $tableName, string $primaryKey, $elem, array $updatedElem)
     {
@@ -146,8 +189,6 @@ class Database
         $this->bindValues($statement, ['elem' => $elem]);
 
         $statement->execute();
-
-        return $this->find($tableName, $primaryKey, $elem);
     }
 
     /**
@@ -155,19 +196,14 @@ class Database
      * @param string $tableName Nom de la table
      * @param string $primaryKey Clé primaire
      * @param string $elem identifiant de l'élément à supprimer
-     * @return mixed Instance de l'élément supprimé
      */
     public function delete(string $tableName, string $primaryKey, string $elem)
     {
-        $backup = $this->find($tableName, $primaryKey, $elem);
-
         $statement = $this->pdo->prepare("DELETE FROM $tableName WHERE $primaryKey = :elem");
 
         $this->bindValues($statement, ['elem' => $elem]);
 
         $statement->execute();
-
-        return $backup;
     }
 
     /**

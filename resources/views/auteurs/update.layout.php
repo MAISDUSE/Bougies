@@ -1,28 +1,35 @@
 @extends('layout/app')
 
 
-
 @section('content')
-    <h2>Auteur - Edit</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
 
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Formulaire de modification d'un auteur</h3>
+                </div>
 
-    <!--editForm-->
+                <form action="" method="post" class="form-horizontal">
+                    <!-- .card-body -->
+                    <div class="card-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Nom</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Nom de l'auteur" value="<?= htmlspecialchars($auteur->nom_auteur) ?>" required autofocus>
+                        </div>
 
+                    </div>
+                    <!-- /.card-body -->
 
-    <form method="post" class="auteur" id="auteurEdit">
-      @csrf
-
-      <div class="">
-        <label for="newName">Auteur :</label>
-        <input type="text" name="newName" id="newName" value=<?=$auteur->nom_auteur?> required>
-        <input type="hidden" name="id" id="id" value=<?=$auteur->id_auteur?> disabled>
-      </div>
-
-      <div class="sbmit">
-        <input type="submit" name="formsend" id="formsend" value="Enregistrer les modifications">
-      </div>
-
-    </form>
-
-
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

@@ -6,7 +6,6 @@ use core\Model;
 
 class User extends Model
 {
-    protected static string $table = 'user';
-
-    protected static string $primaryKey = 'id';
+    protected string $table = 'user';
+    protected string $primaryKey = 'id';
 }

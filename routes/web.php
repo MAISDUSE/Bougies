@@ -26,7 +26,6 @@ use core\Route;
     });
 */
 
-
 Route::get('/', IndexController::class);
 
 
@@ -49,6 +48,8 @@ Route::get('/auteurs', AuteursController::class);
 Route::get('/auteurs/add', [AuteursController::class, 'addForm']);
 Route::post('/auteurs/add', [AuteursController::class, 'add']);
 
+Route::get('/auteurs/{id}', [AuteursController::class, 'show']);
+
 Route::get('/auteurs/{id}/update', [AuteursController::class, 'updateForm']);
 Route::post('/auteurs/{id}/update', [AuteursController::class, 'update']);
 
@@ -58,6 +59,9 @@ Route::post('/auteurs/{id}/delete', [AuteursController::class, 'delete']);
 
 //BougiesController
 Route::get('/bougies',BougiesController::class);
+
+Route::get('/bougies/add', [BougiesController::class, 'addForm']);
+Route::post('/bougies/add', [BougiesController::class, 'add']);
 
 Route::get('/bougies/{id}', [BougiesController::class, 'show']);
 
@@ -73,6 +77,8 @@ Route::get('/collections', CollectionsController::class);
 
 Route::get('/collections/add', [CollectionsController::class, 'addForm']);
 Route::post('/collections/add', [CollectionsController::class, 'add']);
+
+Route::get('/collections/{id}', [CollectionsController::class, 'show']);
 
 Route::get('/collections/{id}/update', [CollectionsController::class, 'updateForm']);
 Route::post('/collections/{id}/update', [CollectionsController::class, 'update']);

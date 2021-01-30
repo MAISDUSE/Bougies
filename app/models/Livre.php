@@ -6,6 +6,11 @@ use core\Model;
 
 class Livre extends Model
 {
-    protected static string $table = 'livre';
-    protected static string $primaryKey = 'id_livre';
+    protected string $table = 'livre';
+    protected string $primaryKey = 'id_livre';
+
+    public function auteur()
+    {
+        return $this->belongsTo(Auteur::class, $this->id_auteur);
+    }
 }

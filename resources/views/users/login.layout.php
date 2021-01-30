@@ -16,7 +16,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="login" class="col-form-label">Identifiant</label>
-                        <input type="text" name="login" class="form-control" id="login" placeholder="Votre identifiant" required>
+                        <input type="text" name="login" class="form-control" id="login" placeholder="Votre identifiant" required autofocus>
                     </div>
 
                     <div class="form-group">

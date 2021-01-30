@@ -39,7 +39,7 @@
                         Collection
                     </th>
                     <th style="width: 4%">
-                        Etat
+                        Statut
                     </th>
                     <th class="text-right" style="width: 20%">
                         Actions
@@ -56,10 +56,10 @@
                             <?= htmlspecialchars($bougie->nom_bougie) ?>
                         </td>
                         <td>
-                            <?= htmlspecialchars(\app\models\Livre::find($bougie->id_livre)->titre) ?>
+                            <?= htmlspecialchars($bougie->livre()->titre) ?>
                         </td>
                         <td>
-                            <?= htmlspecialchars(\app\models\Collection::find($bougie->id_collection)->nom_collection) ?>
+                            <?= htmlspecialchars($bougie->collection()->nom_collection) ?>
                         </td>
                         <td class="project-state">
                             <?php if($bougie->statut_bougie == "validée"): ?>

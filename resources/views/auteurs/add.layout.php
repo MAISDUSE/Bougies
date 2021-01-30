@@ -1,22 +1,35 @@
 @extends('layout/app')
 
 
-
 @section('content')
-    <h2>Auteur - Add new</h2>
-    <form method="post" class="auteur" id="auteurAdd">
-      @csrf
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
 
-      <div class="">
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom" placeholder="Le nom du nouvel auteur" required>
-      </div>
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Formulaire de création d'un auteur</h3>
+                </div>
 
-      <div class="sbmit">
-        <input type="submit" name="formsend" id="formsend" value="Ajouter l'auteur">
-      </div>
+                <form action="" method="post" class="form-horizontal">
+                    <!-- .card-body -->
+                    <div class="card-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Nom</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Nom de l'auteur" value="<?php if(isset($name)) echo htmlspecialchars($name); ?>" required autofocus>
+                        </div>
 
-    </form>
+                    </div>
+                    <!-- /.card-body -->
 
-
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

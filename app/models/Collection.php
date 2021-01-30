@@ -6,6 +6,6 @@ use core\Model;
 
 class Collection extends Model
 {
-    protected static string $table = 'collection';
-    protected static string $primaryKey = 'id_collection';
+    protected string $table = 'collection';
+    protected string $primaryKey = 'id_collection';
 }

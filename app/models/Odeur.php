@@ -6,6 +6,6 @@ use core\Model;
 
 class Odeur extends Model
 {
-    protected static string $table = 'odeur';
-    protected static string $primaryKey = 'id_odeur';
+    protected string $table = 'odeur';
+    protected string $primaryKey = 'id_odeur';
 }

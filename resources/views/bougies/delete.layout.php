@@ -8,11 +8,11 @@
 
             <div class="card card-danger">
                 <div class="card-header">
-                    <h3 class="card-title">Suppression d'un auteur</h3>
+                    <h3 class="card-title">Suppression d'une bougie</h3>
                 </div>
 
                 <div class="card-body">
-                    Voulez vous vraiment supprimer cet auteur ?
+                    Voulez vous vraiment supprimer cette bougie ?
                 </div>
 
                 <form action="" method="post" class="form-horizontal">

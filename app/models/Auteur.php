@@ -6,7 +6,11 @@ use core\Model;
 
 class Auteur extends Model
 {
-    protected static string $table = 'auteur';
-    protected static string $primaryKey = 'id_auteur';
+    protected string $table = 'auteur';
+    protected string $primaryKey = 'id_auteur';
 
+    public function livres()
+    {
+        return $this->hasMany(Livre::class);
+    }
 }

@@ -6,6 +6,6 @@ use core\Model;
 
 class Event extends Model
 {
-    protected static string $table = 'event';
-    protected static string $primaryKey = 'id';
+    protected string $table = 'event';
+    protected string $primaryKey = 'id';
 }

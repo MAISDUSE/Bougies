@@ -36,7 +36,7 @@ class Authentication
 
         if ($role === 0)
         {
-            if ($_SESSION['role'] >= $minPerm) $can = true;
+            if (User::find($_SESSION['id'])->role >= $minPerm) $can = true;
         }
         else
         {
@@ -55,7 +55,7 @@ class Authentication
 
     public static function login($login, $lpassword): int
     {
-        $me = Application::$app->db->find("user", "login", $login);
+        $me = User::where("login", $login)[0];
         //var_dump($me);
         if ($me) {
             //compte existe bien
@@ -82,8 +82,8 @@ class Authentication
         $etat = -3;
         if ($password == $cpassword) {
             $hashpass = password_hash($password, PASSWORD_DEFAULT);
-            $me = Application::$app->db->find("user", "login", $login);
-            if ($me == false) { //ce login n'est pas encore utilisé
+            $me = User::unique($login, "login");
+            if ($me === true) { //ce login n'est pas encore utilisé
 
                 $user = [
                     'login' => $login,
@@ -105,6 +105,7 @@ class Authentication
         } else {
             $etat = -2;//"Mot de passe différents.";
         }
+
         return $etat;
 
     }
