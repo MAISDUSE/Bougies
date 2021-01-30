@@ -8,6 +8,7 @@ use app\controllers\CollectionsController;
 use app\controllers\EventsController;
 use app\controllers\LivresController;
 use app\controllers\RecettesController;
+use app\controllers\OdeursController;
 
 use app\controllers\AdminController;
 
@@ -107,7 +108,18 @@ Route::post('/livres/{id}/delete', [LivresController::class, 'delete'])->perm("d
 
 
 //OdeursController
-Route::get('/odeurs', AdminController::class);
+Route::get('/odeurs', OdeursController::class);
+
+Route::get('/odeurs/add', [OdeursController::class, 'addForm'])->perm("add");
+Route::post('/odeurs/add', [OdeursController::class, 'add'])->perm("add");
+
+Route::get('/odeurs/{id}', [OdeursController::class, 'show']);
+
+Route::get('/odeurs/{id}/update', [OdeursController::class, 'updateForm'])->perm("edit");
+Route::post('/odeurs/{id}/update', [OdeursController::class, 'update'])->perm("edit");
+
+Route::get('/odeurs/{id}/delete', [OdeursController::class, 'deleteForm'])->perm("delete");
+Route::post('/odeurs/{id}/delete', [OdeursController::class, 'delete'])->perm("delete");
 
 //RecettesController
 Route::get('/recettes', RecettesController::class);
