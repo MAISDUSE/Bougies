@@ -43,7 +43,7 @@ class BougiesController extends Controller
         }
         else
         {
-            Session::addError("Ajout impossible", "Cet bougie existe déjà");
+            Session::addError("Ajout impossible", "Cette bougie existe déjà");
             Session::setOld(['name' => $bougie['nom_bougie']]);
             $this->redirect('/bougies/add');
         }
