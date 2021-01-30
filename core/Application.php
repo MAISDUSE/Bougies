@@ -47,11 +47,11 @@ class Application
 
         $this->config = Config::loadConfig();
 
+        $this->db = new Database($this->config);
+
         $this->router = new Router();
 
         $this->response = new Response();
-
-        $this->db = new Database($this->config);
     }
 
     /**
