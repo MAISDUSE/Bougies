@@ -172,4 +172,35 @@ abstract class Model
         $pk = $this->primaryKey;
         return $model::where($this->primaryKey, $this->$pk);
     }
+
+    /**
+     * Défini une relation de possession de plusieurs autres Model
+     * @param string $model Models que l'instance du model courant possède
+     * @param string $assocTable
+     * @param mixed $foreignKey
+     * @param mixed $localKey
+     * @return array Tableau des instances des Model que le Model courant possède
+     */
+    public function hasManyAssoc(string $model, string $assocTable, $foreignKey = null, $localKey = null): array
+    {
+        $pk = $this->primaryKey;
+        $associations = Application::$app->db->where($assocTable, $localKey ?? $this->primaryKey, $this->$pk);
+
+        $assocArray = [];
+        foreach ($associations as $assoc)
+        {
+            $assocArray[] = $model::find($assoc[$foreignKey ?? (new $model)->primaryKey]);
+        }
+
+        return $assocArray;
+    }
+
+    /**
+     * @param string $request
+     * @return array
+     */
+    public static function raw(string $request): array
+    {
+        return Application::$app->db->raw($request);
+    }
 }

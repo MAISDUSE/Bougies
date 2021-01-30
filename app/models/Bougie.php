@@ -23,4 +23,9 @@ class Bougie extends Model
     {
         return $this->hasMany(Recette::class);
     }
+
+    public function events(): array
+    {
+        return $this->hasManyAssoc(Event::class, "events", "id_event");
+    }
 }

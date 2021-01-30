@@ -85,16 +85,23 @@ class Database
      * @param string $tableName Nom de la table
      * @param string $colName Nom de la colone sur laquelle le where est appliqué
      * @param mixed $elem Identifiant de l'élément à rechercher
-     * @param string $model Nom du modèle pour le tableau de retour
+     * @param mixed $model Nom du modèle pour le tableau de retour
      * @return array Tableau de Model
      */
-    public function where(string $tableName, string $colName, $elem, string $model): array
+    public function where(string $tableName, string $colName, $elem, $model = false): array
     {
         $statement = $this->pdo->prepare("SELECT * FROM $tableName WHERE $colName = :elem");
 
         $this->bindValues($statement, ['elem' => $elem]);
 
-        $statement->setFetchMode(PDO::FETCH_CLASS, $model);
+        if ($model === false)
+        {
+            $statement->setFetchMode(PDO::FETCH_ASSOC);
+        }
+        else
+        {
+            $statement->setFetchMode(PDO::FETCH_CLASS, $model);
+        }
 
         $statement->execute();
 
@@ -102,7 +109,7 @@ class Database
     }
 
     /**
-     * Compe toutes les entrées d'une table
+     * Compte toutes les entrées d'une table
      * @param string $tableName Nom de la table
      * @return integer Nombre d'éléments dans la table
      */
@@ -231,5 +238,19 @@ class Database
 
             $statement->bindValue(":$attr", $value, $param);
         }
+    }
+
+    /**
+     * Execute la requete brute passée en paramètre
+     * @param string $request Requete
+     * @return array réponse
+     */
+    public function raw(string $request): array
+    {
+        $statement = $this->pdo->prepare($request);
+
+        $statement->execute();
+
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
     }
 }

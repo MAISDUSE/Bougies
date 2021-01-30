@@ -12,36 +12,20 @@ class IndexController extends Controller
 {
     public function index()
     {
+        $rows = Bougie::raw('SELECT `statut_bougie`, COUNT(`statut_bougie`) AS nombre FROM bougie GROUP BY `statut_bougie`');
+
+        $taux = [];
+        foreach ($rows as $row)
+        {
+            $taux[$row["statut_bougie"]] = $row["nombre"];
+        }
+
         $this->view->render("index", [
             "nbBougies" => Bougie::count(),
             "nbLivres" => Livre::count(),
             "nbAuteurs" => Auteur::count(),
-            "nbEvents" => Event::count()
+            "nbEvents" => Event::count(),
+            'taux' => $taux
         ]);
-
-        //return $this->view->display("layout/app.layout.php");
-        //ancienne methode desomais on fait tout en un appel de render
-    }
-
-    public function contact()
-    {
-        $this->view->render("contact");
-    }
-
-    public function events()
-    {
-        $this->view->render("layout/app", ["param1" => Event::all(), "param2" => []]);
-    }
-
-    public function getBougie($bougieid)
-    {
-        $this->view->render("bougies/show",[
-            'bougie' => Bougie::find($bougieid)
-        ]);
-    }
-
-    public function showEvent($event)
-    {
-        echo "Event : $event!";
     }
 }

@@ -41,9 +41,22 @@ class Request
         return $method;
     }
 
+    /**
+     * Nettoie la variable post (ne filtre pas les quotes)
+     * @param mixed $var Retourne la valeur de $_POST[$var]
+     * @return mixed Retourne le tableau de post ou la valeur de $var
+     */
     public function post($var = false)
     {
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        $options = [];
+
+        foreach (array_keys($_POST) as $key)
+        {
+            $options[$key] = ["filter" => FILTER_SANITIZE_STRING, "flags" => FILTER_FLAG_NO_ENCODE_QUOTES];
+        }
+
+        $_POST = filter_input_array(INPUT_POST, $options);
+
         $value = $_POST[$var] ?? false;
 
         return ($var === false)? $_POST : $value;
