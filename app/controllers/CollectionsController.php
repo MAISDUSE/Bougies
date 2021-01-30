@@ -4,69 +4,92 @@ namespace app\controllers;
 
 use app\models\Collection;
 use core\Controller;
+use core\Session;
 
 class CollectionsController extends Controller
 {
-    //get page affiche les collections
-    public function index(){
-        //var_dump(collection::all());
-        $collections = Collection::all();
-        $this->view->render("/collections/index", [
-            'collections' => $collections
+    public function index()
+    {
+        $this->view->render("collections/index", [
+            'collections' => Collection::all()
         ]);
     }
-    ///////////////////////////////////////////////////////////////
-    //form add collection
-    //get form et post
-    public function add(){ //post
-        //chercher if pas de duplicata here then
-        $nom = $this->request->post('nom');
-        $collection = [
-            'nom_collection' => $nom
-        ];
-        Collection::create($collection);
-        //collection ajoutée on retourn sur l'affichage de toutes les collections
-        $this->redirect('/collections');
+
+    public function addForm()
+    {
+        $this->view->render("collections/add");
     }
 
-    public function addForm(){ //get
-        $this->view->render("/collections/add");
+    public function add()
+    {
+        $collection = [
+            'nom_collection' => $this->request->post('name')
+        ];
+
+        if (Collection::unique($collection['nom_collection'], "nom_collection"))
+        {
+            Collection::create($collection);
+            Session::addSuccess("Ajout réussi", "La collection a bien été ajouté.");
+            $this->redirect('/collections');
+        }
+        else
+        {
+            Session::addError("Ajout impossible", "Cette collection existe déjà");
+            Session::setOld(['name' => $collection['nom_collection']]);
+            $this->redirect('/collections/add');
+        }
     }
-    ////////////////////////////////////////////////////////////////
-    //form edit une collection
-    //get form et post
-    public function updateForm($id){ //get
-        $collection = Collection::find($id);
-        $this->view->render("/collections/update", [
-            'collection' => $collection
+
+    public function show($id)
+    {
+        $this->view->render("collections/show", [
+            'collection' => Collection::findOrFail($id)
+        ]);
+    }
+
+    public function updateForm($id)
+    {
+        $this->view->render("collections/update", [
+            'collection' => Collection::findOrFail($id)
         ]);
     }
 
     public function update($id)
-    { //post
+    {
         $collection = [
-            'nom_collection' => $this->request->post('newName')
+            'nom_collection' => $this->request->post('name')
         ];
+
+        Session::addSuccess("Modification réussie", "La Collection a bien été modifié.");
+
         Collection::update($id, $collection);
-        //collection editée on retourne sur l'affichage de tous les collections
+
         $this->redirect('/collections');
 
     }
 
-    //////////////////////////////////////////////////////////////
-    //form supp une collection
-    //get form et post
     public function deleteForm($id)
-    { //get
-        $collection = Collection::find($id);
-        $this->view->render("/collections/delete", [
-            'collection' => $collection
+    {
+        $this->view->render("collections/delete", [
+            'collection' => Collection::findOrFail($id)
         ]);
     }
-    public function delete($id){ //post
-        Collection::delete($id);
-        //Collection supprimée on retourne sur l'affichage de tous les collections
-        $this->redirect('/collections');
 
+    public function delete($id)
+    {
+        $collection = Collection::findOrFail($id);
+
+        if (count($collection->bougies()) != 0)
+        {
+            Session::addError("Suppression impossible", "La collection a encore des bougies à son actif.");
+        }
+        else
+        {
+
+            Collection::delete($id);
+            Session::addSuccess("Suppression réussie", "La Collection a bien été supprimé.");
+        }
+
+        $this->redirect('/collections');
     }
 }

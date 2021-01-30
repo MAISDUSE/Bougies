@@ -1,27 +1,30 @@
 @extends('layout/app')
 
 
-
 @section('content')
-    <h2>collection - Delete</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
 
+            <div class="card card-danger">
+                <div class="card-header">
+                    <h3 class="card-title">Suppression d'une collection</h3>
+                </div>
 
-    <!--editForm-->
+                <div class="card-body">
+                    Voulez vous vraiment supprimer cette collection ?
+                </div>
 
-
-    <form method="post" class="auteur" id="collectionDelete">
-      @csrf
-
-      <div class="">
-        <label for="id"><?=$collection->nom_collection?></label>
-        <input type="hidden" name="id" id="id" value=<?=$collection->id_collection?> disabled>
-      </div>
-
-      <div class="sbmit">
-        <input type="submit" name="formsend" id="formsend" value="Delete">
-      </div>
-
-    </form>
-
-
+                <form action="" method="post" class="form-horizontal">
+                    <!-- .card-body -->
+                    @csrf
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

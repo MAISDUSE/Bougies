@@ -1,22 +1,33 @@
 @extends('layout/app')
-
-
-
 @section('content')
-    <h2>collection - Add new</h2>
-    <form method="post" class="collection" id="collectionAdd">
-      @csrf
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-12">
 
-      <div class="">
-        <label for="nom">Nom :</label>
-        <input type="text" name="nom" id="nom" placeholder="Le nom de la nouvelle collection" required>
-      </div>
+            <div class="card card-success">
+                <div class="card-header">
+                    <h3 class="card-title">Formulaire de création d'une collection</h3>
+                </div>
 
-      <div class="sbmit">
-        <input type="submit" name="formsend" id="formsend" value="Ajouter la collection">
-      </div>
+                <form action="" method="post" class="form-horizontal">
+                    <!-- .card-body -->
+                    <div class="card-body">
+                        @csrf
+                        <div class="form-group">
+                            <label for="name" class="col-form-label">Nom</label>
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Nom de la collection" value="<?php if(isset($name)) echo htmlspecialchars($name); ?>" required autofocus>
+                        </div>
 
-    </form>
+                    </div>
+                    <!-- /.card-body -->
 
-
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-success">Créer</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection

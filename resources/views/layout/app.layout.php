@@ -141,7 +141,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/auteurs/add" class="nav-link">
+                                <a href="/collections/add" class="nav-link">
                                     <i class="nav-icon fas fa-plus-circle"></i>
                                     <p>Ajouter une collection</p>
                                 </a>
@@ -238,7 +238,7 @@
 
                     <!-- link -->
                     <li class="nav-item">
-                        <a href="/auteurs" class="nav-link">
+                        <a href="/collections" class="nav-link">
                             <i class="nav-icon fas fa-books"></i>
                             <p>
                                 Liste des collections
@@ -248,7 +248,7 @@
 
                     <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
-                        <a href="/auteurs/add" class="nav-link">
+                        <a href="/collections/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Ajouter une collection

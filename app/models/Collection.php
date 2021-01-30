@@ -8,4 +8,10 @@ class Collection extends Model
 {
     protected string $table = 'collection';
     protected string $primaryKey = 'id_collection';
+
+
+    public function bougies()
+    {
+        return $this->hasMany(Bougie::class);
+    }
 }
