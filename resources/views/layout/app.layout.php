@@ -155,7 +155,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/auteurs/add" class="nav-link">
+                                <a href="/livres/add" class="nav-link">
                                     <i class="nav-icon fas fa-plus-circle"></i>
                                     <p>Ajouter un livre</p>
                                 </a>
@@ -289,7 +289,7 @@
 
                     <!-- link -->
                     <li class="nav-item">
-                        <a href="/auteurs" class="nav-link">
+                        <a href="/livres" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
                             <p>
                                 Liste des livres
@@ -299,7 +299,7 @@
 
                     <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
-                        <a href="/auteurs/add" class="nav-link">
+                        <a href="/livres/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Ajouter un livre
@@ -385,7 +385,7 @@
         <div class="float-right d-none d-sm-block">
             TP PHP Bougies
         </div>
-        Auteurs : Mathieu DUSÉ - Hugo PONTACQ - <a href="https://github.com/MAISDUSE/Bougies" target="_blank">Github</a>
+        ©Copyright | 2021 | Auteurs : Mathieu DUSÉ - Hugo PONTACQ | <a href="https://github.com/MAISDUSE/Bougies" target="_blank">Github</a>
     </footer>
 
 </div>

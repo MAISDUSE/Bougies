@@ -94,6 +94,18 @@ Route::get('/events/{id}', [EventsController::class, 'show']);
 //LivresController
 Route::get('/livres', LivresController::class);
 
+Route::get('/livres/add', [LivresController::class, 'addForm']);
+Route::post('/livres/add', [LivresController::class, 'add']);
+
+Route::get('/livres/{id}', [LivresController::class, 'show']);
+
+Route::get('/livres/{id}/update', [LivresController::class, 'updateForm']);
+Route::post('/livres/{id}/update', [LivresController::class, 'update']);
+
+Route::get('/livres/{id}/delete', [LivresController::class, 'deleteForm']);
+Route::post('/livres/{id}/delete', [LivresController::class, 'delete']);
+
+
 //OdeursController
 Route::get('/odeurs', AdminController::class);
 

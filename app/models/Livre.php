@@ -13,4 +13,8 @@ class Livre extends Model
     {
         return $this->belongsTo(Auteur::class, $this->id_auteur);
     }
+    public function bougies()
+    {
+        return $this->hasMany(Bougie::class);
+    }
 }
