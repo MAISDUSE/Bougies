@@ -14,7 +14,7 @@
                     <p>Nom : <?= htmlspecialchars($bougie->nom_bougie) ?></p>
                     <p>Livre : <?= htmlspecialchars($bougie->livre()->titre) ?></p>
                     <p>Collection : <?= htmlspecialchars($bougie->collection()->nom_collection) ?></p>
-                    <p>Statut : <?= htmlspecialchars($bougie->statut_bougie) ?></p>
+                    <p>Statut : <?= htmlspecialchars(ucfirst($bougie->statut_bougie)) ?></p>
                     <p>Recettes :</p>
                     <?php if (count($bougie->recettes()) != 0): ?>
                         <ul>
