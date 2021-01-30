@@ -39,7 +39,7 @@
                                 <?php endforeach; ?>
                             </select>
                         </div>
-
+                        <!--
                         <div class="form-group">
                             <label for="statut_bougie">Statut :</label>
                             <select name="statut_bougie" id="statut_bougie" class="form-control" required>
@@ -49,6 +49,7 @@
                                 <option value="rejetée">Rejetée</option>
                             </select>
                         </div>
+                        -->
                     </div>
                     <!-- /.card-body -->
 

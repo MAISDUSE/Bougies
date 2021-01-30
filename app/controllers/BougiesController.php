@@ -32,7 +32,7 @@ class BougiesController extends Controller
             'nom_bougie' => $this->request->post('name'),
             'id_livre' => $this->request->post('id_livre'),
             'id_collection' => $this->request->post('id_collection'),
-            'statut_bougie' => $this->request->post('statut_bougie')
+            'statut_bougie' => "neutre"
         ];
 
         if (Bougie::unique($bougie['nom_bougie'], "nom_bougie"))
