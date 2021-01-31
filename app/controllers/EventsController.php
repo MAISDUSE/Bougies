@@ -80,9 +80,15 @@ class EventsController extends Controller
     {
         $event = Event::findOrFail($id);
 
+        if (count($event->bougies()) != 0)
+        {
+            Session::addError("Suppression impossible", "L\'events a encore des bougies.");
+        }
+        else
+        {
             Event::delete($id);
             Session::addSuccess("Suppression réussie", "L\'event a bien été supprimé.");
-
+        }
         $this->redirect('/events');
     }
 }
