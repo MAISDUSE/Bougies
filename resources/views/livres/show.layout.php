@@ -13,6 +13,19 @@
                 <div class="card-body">
                     <p>Nom : <?= htmlspecialchars($livre->titre) ?></p>
                     <p>Auteur : <?= htmlspecialchars($livre->auteur()->nom_auteur) ?></p>
+                    <p>Bougies :</p>
+                    <?php if (count($livre->bougies()) != 0): ?>
+                        <ul>
+                            <?php foreach ($livre->bougies() as $bougie): ?>
+
+                                <li><?= htmlspecialchars($bougie->nom_bougie) ?> - <a href="/bougies/<?= $bougie->id_bougie ?>">Voir</a></li>
+
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p>Ce livre n'a pas encore de bougies.</p>
+                    <?php endif; ?>
+
                 </div>
 
                 <?php if(\core\Authentication::can("edit")): ?>

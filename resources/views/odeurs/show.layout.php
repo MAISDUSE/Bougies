@@ -23,7 +23,7 @@
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
-                        <p>Cet bougie n'a pas encore de recettes.</p>
+                        <p>Cette odeur n'a pas encore de recettes.</p>
                     <?php endif; ?>
                 </div>
 
