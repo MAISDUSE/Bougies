@@ -90,10 +90,17 @@ Route::post('/collections/{id}/delete', [CollectionsController::class, 'delete']
 
 //EventsController
 Route::get('/events', EventsController::class);
+
 Route::get('/events/{id}', [EventsController::class, 'show']);
 
 Route::get('/events/add', [EventsController::class, 'addForm'])->perm("add");
 Route::post('/events/add', [EventsController::class, 'add'])->perm("add");
+
+Route::get('/events/{id}/assocbougie', [EventsController::class, 'assocBougieForm'])->perm("add");
+Route::post('/events/{id}/assocbougie', [EventsController::class, 'assocBougie'])->perm("add");
+
+Route::get('/events/{idEvent}/assocbougie/{idBougie}/delete', [EventsController::class, 'deleteAssocBougieForm'])->perm("delete");
+Route::post('/events/{idevent}/assocbougie/{idBougie}/delete', [EventsController::class, 'deleteAssocBougie'])->perm("delete");
 
 
 Route::get('/events/{id}/update', [EventsController::class, 'updateForm'])->perm("edit");

@@ -8,7 +8,7 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                Liste des events
+                Liste des évènements
                 <?php if(\core\Authentication::can("add")): ?>
                     <a class="btn btn-success btn-sm ml-3" href="/events/add">
                         <i class="fas fa-plus-circle"></i>
@@ -52,6 +52,11 @@
                             <a class="btn btn-info btn-sm" href="/events/<?= $event->id ?>">
                                 <i class="fas fa-search"></i>
                                 Détails
+                            </a>
+
+                            <a class="btn btn-success btn-sm" href="/events/<?= $event->id ?>/assocbougie">
+                                <i class="fas fa-candle-holder"></i>
+                                Bougies
                             </a>
 
                             <?php if(\core\Authentication::can("edit")): ?>

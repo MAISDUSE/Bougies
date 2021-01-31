@@ -8,18 +8,18 @@
 
             <div class="card card-danger">
                 <div class="card-header">
-                    <h3 class="card-title">Suppression d'un évènement</h3>
+                    <h3 class="card-title">Suppression d'une association</h3>
                 </div>
 
                 <div class="card-body">
-                    Voulez vous vraiment supprimer cet évènement ?
+                    Voulez vous vraiment retirer cette bougie de l'évènement ?
                 </div>
 
                 <form action="" method="post" class="form-horizontal">
                     <!-- .card-body -->
                     @csrf
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                        <button type="submit" class="btn btn-danger">Retirer</button>
                     </div>
                     <!-- /.card-footer -->
                 </form>

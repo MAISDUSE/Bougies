@@ -8,7 +8,7 @@
 
             <div class="card card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Formulaire de modification d'un event</h3>
+                    <h3 class="card-title">Formulaire de modification d'un évènement</h3>
                 </div>
 
                 <form action="" method="post" class="form-horizontal">

@@ -96,6 +96,10 @@ class BougiesController extends Controller
         {
             Session::addError("Suppression impossible", "La bougie a encore des recettes.");
         }
+        else if (count($bougie->events()) != 0)
+        {
+            Session::addError("Suppression impossible", "La bougie est toujours associée à un évènement.");
+        }
         else
         {
             Bougie::delete($id);

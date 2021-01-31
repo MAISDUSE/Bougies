@@ -217,6 +217,18 @@ class Database
     }
 
     /**
+     * Supprime une entrée d'une table passée en paramètre, retourne une instance de l'élément supprimé
+     * @param string $tableName Nom de la table
+     * @param string $where Condition de suppression
+     */
+    public function deleteWhere(string $tableName, string $where)
+    {
+        $statement = $this->pdo->prepare("DELETE FROM $tableName WHERE $where");
+
+        $statement->execute();
+    }
+
+    /**
      * Associe les valeurs dans la requete préparée
      * @param object $statement Object PDO avec la requete
      * @param array $element Tableau associatif de l'élément à créer ou modifier

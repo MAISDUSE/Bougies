@@ -14,7 +14,7 @@ class IndexController extends Controller
     {
         $rows = Bougie::raw('SELECT `statut_bougie`, COUNT(`statut_bougie`) AS nombre FROM bougie GROUP BY `statut_bougie`');
 
-        $taux = [];
+        $taux = ["validée" => 0, "neutre" => 0, "rejetée" => 0];
         foreach ($rows as $row)
         {
             $taux[$row["statut_bougie"]] = $row["nombre"];

@@ -4,14 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>TP PHP - Bougies <?= $title ?? "" ?></title>
+
+    <link rel="icon" type="image/png" sizes="256x256"  href="/img/favicon.png">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="/css/dist/fontawesome/all.min.css">
     <link rel="stylesheet" href="/css/dist/OverlayScrollbars.min.css">
     <link rel="stylesheet" href="/css/dist/adminlte.css">
-
     <link rel="stylesheet" href="/css/dist/toastr.min.css">
 
     <link rel="stylesheet" href="/css/custom.css">
@@ -82,7 +84,7 @@
             <?php if (isset($_SESSION['login'])): ?>
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/img/avatar4.png" class="img-circle elevation-2" alt="User Image">
+                    <img src="https://i.pravatar.cc/?u=<?= htmlspecialchars($_SESSION['login']) ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="/user" class="d-block"><?= $_SESSION['login'] ?></a>
