@@ -169,7 +169,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/auteurs/add" class="nav-link">
+                                <a href="/recettes/add" class="nav-link">
                                     <i class="nav-icon fas fa-plus-circle"></i>
                                     <p>Ajouter une recette</p>
                                 </a>
@@ -339,7 +339,7 @@
 
                     <!-- link -->
                     <li class="nav-item">
-                        <a href="/auteurs" class="nav-link">
+                        <a href="/recettes" class="nav-link">
                             <i class="nav-icon fas fa-hat-chef"></i>
                             <p>
                                 Liste des recettes
@@ -349,7 +349,7 @@
 
                     <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
-                        <a href="/auteurs/add" class="nav-link">
+                        <a href="/recettes/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Ajouter une recette

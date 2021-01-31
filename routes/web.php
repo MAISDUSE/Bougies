@@ -124,6 +124,17 @@ Route::post('/odeurs/{id}/delete', [OdeursController::class, 'delete'])->perm("d
 //RecettesController
 Route::get('/recettes', RecettesController::class);
 
+Route::get('/recettes/add', [RecettesController::class, 'addForm'])->perm("add");
+Route::post('/recettes/add', [RecettesController::class, 'add'])->perm("add");
+
+Route::get('/recettes/{id}', [RecettesController::class, 'show']);
+
+Route::get('/recettes/{id}/update', [RecettesController::class, 'updateForm'])->perm("edit");
+Route::post('/recettes/{id}/update', [RecettesController::class, 'update'])->perm("edit");
+
+Route::get('/recettes/{id}/delete', [RecettesController::class, 'deleteForm'])->perm("delete");
+Route::post('/recettes/{id}/delete', [RecettesController::class, 'delete'])->perm("delete");
+
 
 
 //AdminController
