@@ -13,7 +13,7 @@ class ConfigExample
 {
     /**
      * Retourne la configuration
-     * @return array $config Configuration utilisé par la classe Application
+     * @return array Configuration utilisée par la classe Application
      */
     public static function loadConfig(): array
     {

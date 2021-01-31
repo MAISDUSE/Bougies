@@ -5,13 +5,17 @@ namespace app\controllers;
 use app\models\Livre;
 use app\models\Auteur;
 use core\Controller;
-
 use core\Session;
 
-
+/**
+ * Class LivresController
+ * @package app\controllers
+ */
 class LivresController extends Controller
 {
-
+    /**
+     * Affiche tous les livres
+     */
     public function index()
     {
         $this->view->render("livres/index",[
@@ -19,6 +23,9 @@ class LivresController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'un livre
+     */
     public function addForm()
     {
         $this->view->render("livres/add", [
@@ -26,6 +33,9 @@ class LivresController extends Controller
         ]);
     }
 
+    /**
+     * Crée un livre
+     */
     public function add()
     {
         $livre = [
@@ -47,6 +57,10 @@ class LivresController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'un livre
+     * @param mixed $id Identifiant du livre
+     */
     public function show($id)
     {
         $this->view->render("livres/show", [
@@ -54,6 +68,10 @@ class LivresController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'un livre
+     * @param mixed $id Identifiant du livre
+     */
     public function updateForm($id)
     {
         $this->view->render("livres/update", [
@@ -62,6 +80,10 @@ class LivresController extends Controller
         ]);
     }
 
+    /**
+     * Modifie un livre
+     * @param mixed $id Identifiant du livre
+     */
     public function update($id)
     {
         $livre = [
@@ -76,6 +98,10 @@ class LivresController extends Controller
         $this->redirect("/livres");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un livre
+     * @param mixed $id Identifiant du livre
+     */
     public function deleteForm($id)
     {
         $this->view->render("livres/delete", [
@@ -83,6 +109,10 @@ class LivresController extends Controller
         ]);
     }
 
+    /**
+     * Supprime un livre
+     * @param mixed $id Identifiant du livre
+     */
     public function delete($id)
     {
         $livre = Livre::findOrFail($id);

@@ -8,9 +8,15 @@ use app\models\Livre;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class BougiesController
+ * @package app\controllers
+ */
 class BougiesController extends Controller
 {
-
+    /**
+     * Affiche toutes les bougies
+     */
     public function index()
     {
         $this->view->render("bougies/index",[
@@ -18,6 +24,9 @@ class BougiesController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'une bougie
+     */
     public function addForm()
     {
         $this->view->render("bougies/add", [
@@ -26,6 +35,9 @@ class BougiesController extends Controller
         ]);
     }
 
+    /**
+     * Crée une bougie
+     */
     public function add()
     {
         $bougie = [
@@ -49,6 +61,10 @@ class BougiesController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails une bougie
+     * @param mixed $id Identifiant d'une bougie
+     */
     public function show($id)
     {
         $this->view->render("bougies/show", [
@@ -56,6 +72,10 @@ class BougiesController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'une bougie
+     * @param mixed $id Identifiant d'une bougie
+     */
     public function updateForm($id)
     {
         $this->view->render("bougies/update", [
@@ -65,6 +85,10 @@ class BougiesController extends Controller
         ]);
     }
 
+    /**
+     * Modifie une bougie
+     * @param mixed $id Identifiant d'une bougie
+     */
     public function update($id)
     {
         $bougie = [
@@ -81,6 +105,10 @@ class BougiesController extends Controller
         $this->redirect("/bougies");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une bougie
+     * @param mixed $id Identifiant d'une bougie
+     */
     public function deleteForm($id)
     {
         $this->view->render("bougies/delete", [
@@ -88,6 +116,10 @@ class BougiesController extends Controller
         ]);
     }
 
+    /**
+     * Supprime une bougie
+     * @param mixed $id Identifiant d'une bougie
+     */
     public function delete($id)
     {
         $bougie = Bougie::findOrFail($id);

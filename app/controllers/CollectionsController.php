@@ -6,8 +6,15 @@ use app\models\Collection;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class CollectionsController
+ * @package app\controllers
+ */
 class CollectionsController extends Controller
 {
+    /**
+     * Affiche toutes les collections
+     */
     public function index()
     {
         $this->view->render("collections/index", [
@@ -15,11 +22,17 @@ class CollectionsController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'une collection
+     */
     public function addForm()
     {
         $this->view->render("collections/add");
     }
 
+    /**
+     * Crée une collection
+     */
     public function add()
     {
         $collection = [
@@ -40,6 +53,10 @@ class CollectionsController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'une collection
+     * @param mixed $id Identifiant de la collection
+     */
     public function show($id)
     {
         $this->view->render("collections/show", [
@@ -47,6 +64,11 @@ class CollectionsController extends Controller
         ]);
     }
 
+
+    /**
+     * Affiche le formulaire de modification d'une collection
+     * @param mixed $id Identifiant de la collection
+     */
     public function updateForm($id)
     {
         $this->view->render("collections/update", [
@@ -54,6 +76,10 @@ class CollectionsController extends Controller
         ]);
     }
 
+    /**
+     * Modifie une collection
+     * @param mixed $id Identifiant de la collection
+     */
     public function update($id)
     {
         $collection = [
@@ -68,6 +94,10 @@ class CollectionsController extends Controller
 
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une collection
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function deleteForm($id)
     {
         $this->view->render("collections/delete", [
@@ -75,6 +105,10 @@ class CollectionsController extends Controller
         ]);
     }
 
+    /**
+     * Supprime une collection
+     * @param mixed $id Identifiant de la collection
+     */
     public function delete($id)
     {
         $collection = Collection::findOrFail($id);

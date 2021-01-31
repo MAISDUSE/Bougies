@@ -8,8 +8,15 @@ use app\models\Event;
 use app\models\Livre;
 use \core\Controller;
 
+/**
+ * Class IndexController
+ * @package app\controllers
+ */
 class IndexController extends Controller
 {
+    /**
+     * Affiche la page d'accueil
+     */
     public function index()
     {
         $rows = Bougie::raw('SELECT `statut_bougie`, COUNT(`statut_bougie`) AS nombre FROM bougie GROUP BY `statut_bougie`');

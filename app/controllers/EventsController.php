@@ -8,9 +8,15 @@ use core\Application;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class EventsController
+ * @package app\controllers
+ */
 class EventsController extends Controller
 {
-
+    /**
+     * Affiche tous les events
+     */
     public function index()
     {
         $this->view->render("events/index", [
@@ -18,11 +24,17 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'un event
+     */
     public function addForm()
     {
         $this->view->render("events/add");
     }
 
+    /**
+     * Ajoute un event
+     */
     public function add()
     {
         $event = [
@@ -43,6 +55,10 @@ class EventsController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'un event
+     * @param mixed $id Identifiant de l'event
+     */
     public function show($id)
     {
         $this->view->render("events/show", [
@@ -50,6 +66,10 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'un event
+     * @param mixed $id Identifiant de l'event
+     */
     public function updateForm($id)
     {
         $this->view->render("events/update", [
@@ -57,6 +77,10 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Modifie un event
+     * @param mixed $id Identifiant de l'event
+     */
     public function update($id)
     {
         $event = [
@@ -71,6 +95,10 @@ class EventsController extends Controller
 
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un event
+     * @param mixed $id Identifiant de l'event
+     */
     public function deleteForm($id)
     {
         $this->view->render("events/delete", [
@@ -78,6 +106,10 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Supprime un event
+     * @param mixed $id Identifiant de l'event
+     */
     public function delete($id)
     {
         $event = Event::findOrFail($id);
@@ -93,6 +125,10 @@ class EventsController extends Controller
         $this->redirect('/events');
     }
 
+    /**
+     * Affiche les détails des associations via la table assciation events
+     * @param mixed $idEvent Identifiant de l'event
+     */
     public function assocBougieForm($idEvent)
     {
         $bougies = Bougie::all();
@@ -115,6 +151,10 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Ajoute une association bougie - event dans la table events
+     * @param mixed $idEvent Identifiant de l'event
+     */
     public function assocBougie($idEvent)
     {
         $event = Event::findOrFail($idEvent);
@@ -136,6 +176,11 @@ class EventsController extends Controller
         $this->redirect("/events/$event->id/assocbougie");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une association event - bougie
+     * @param mixed $idEvent Identifiant de l'event
+     * @param mixed $idBougie Identifiant de la bougie
+     */
     public function deleteAssocBougieForm($idEvent, $idBougie)
     {
         $this->view->render("events/deleteAssoc", [
@@ -144,6 +189,11 @@ class EventsController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une association event - bougie
+     * @param mixed $idEvent Identifiant de l'event
+     * @param mixed $idBougie Identifiant de la bougie
+     */
     public function deleteAssocBougie($idEvent, $idBougie)
     {
         $event = Event::findOrFail($idEvent);

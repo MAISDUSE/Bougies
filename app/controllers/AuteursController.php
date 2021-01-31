@@ -6,8 +6,15 @@ use app\models\Auteur;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class AuteursController
+ * @package app\controllers
+ */
 class AuteursController extends Controller
 {
+    /**
+     * Affiche tous les auteurs
+     */
     public function index()
     {
         $this->view->render("auteurs/index", [
@@ -15,11 +22,17 @@ class AuteursController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'un auteur
+     */
     public function addForm()
     {
         $this->view->render("auteurs/add");
     }
 
+    /**
+     * Crée un auteur
+     */
     public function add()
     {
         $auteur = [
@@ -40,6 +53,10 @@ class AuteursController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'un auteur
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function show($id)
     {
         $this->view->render("auteurs/show", [
@@ -47,6 +64,10 @@ class AuteursController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'un auteur
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function updateForm($id)
     {
         $this->view->render("auteurs/update", [
@@ -54,6 +75,10 @@ class AuteursController extends Controller
         ]);
     }
 
+    /**
+     * Modifie un auteur
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function update($id)
     {
         $auteur = [
@@ -68,6 +93,10 @@ class AuteursController extends Controller
 
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un auteur
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function deleteForm($id)
     {
         $this->view->render("auteurs/delete", [
@@ -75,6 +104,10 @@ class AuteursController extends Controller
         ]);
     }
 
+    /**
+     * Supprime un auteur
+     * @param mixed $id Identifiant de l'auteur
+     */
     public function delete($id)
     {
         $auteur = Auteur::findOrFail($id);

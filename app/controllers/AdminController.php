@@ -6,8 +6,15 @@ use app\models\User;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class AdminController
+ * @package app\controllers
+ */
 class AdminController extends Controller
 {
+    /**
+     * Affiche tous les utilisateurs
+     */
     public function index()
     {
         $users = User::all();
@@ -22,6 +29,10 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'un untilisateur
+     * @param mixed $id Identifiant de l'utisateur
+     */
     public function updateForm($id)
     {
         $this->view->render("admin/update", [
@@ -29,6 +40,10 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Modifie un utilisateur
+     * @param mixed $id Identifiant de l'utisateur
+     */
     public function update($id)
     {
         $user = [
@@ -43,6 +58,10 @@ class AdminController extends Controller
         $this->redirect("/admin");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'un untilisateur
+     * @param mixed $id Identifiant de l'utisateur
+     */
     public function deleteForm($id)
     {
         $this->view->render("admin/delete", [
@@ -50,6 +69,10 @@ class AdminController extends Controller
         ]);
     }
 
+    /**
+     * Supprime un utilisateur
+     * @param mixed $id Identifiant de l'utisateur
+     */
     public function delete($id)
     {
         $user = User::findOrFail($id);
@@ -64,7 +87,6 @@ class AdminController extends Controller
             Session::addSuccess("Suppression réussie", "L'utilisateur a bien été supprimée.");
 
         }
-
 
         $this->redirect('/admin');
     }

@@ -8,10 +8,15 @@ use \core\Controller;
 use \core\Authentication as Auth;
 use core\Session;
 
-
+/**
+ * Class UsersController
+ * @package app\controllers
+ */
 class UsersController extends Controller
 {
-
+    /**
+     * Affiche le formulaire de connexion
+     */
     public function loginForm()
     {
         if(isset($_SESSION['login']))
@@ -23,7 +28,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Récupère les login et mot de passe en post
+     * Connecte l'utilisateur
      */
     public function login()
     {
@@ -47,6 +52,10 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'un utilisateur
+     * @param mixed $id Identifiant d'un utiliateur (valeur par défaut : $_SESSION['id'])
+     */
     public function show($id = false)
     {
         $user = false;
@@ -75,6 +84,17 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire d'inscription
+     */
+    public function registerForm()
+    {
+        $this->view->render("users/register");
+    }
+
+    /**
+     * Incrit un utilisateur, par défaut, un utilisateur pourra seulement ajouter des éléments
+     */
     public function register()
     {
         //recupère les données utilisateurs puis appele les fonctions de traitement de Authentification
@@ -112,12 +132,9 @@ class UsersController extends Controller
         }
     }
 
-    public function registerForm()
-    {
-      $this->view->render("users/register");
-    }
-
-
+    /**
+     * Déconnecte l'utilisateur
+     */
     public function logout()
     {
         Auth::logout();

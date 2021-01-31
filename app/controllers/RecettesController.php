@@ -8,9 +8,15 @@ use app\models\Odeur;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class RecettesController
+ * @package app\controllers
+ */
 class RecettesController extends Controller
 {
-
+    /**
+     * Affiche toutes les recettes
+     */
     public function index()
     {
         $this->view->render("recettes/index",[
@@ -18,6 +24,9 @@ class RecettesController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'une recette
+     */
     public function addForm()
     {
         $this->view->render("recettes/add", [
@@ -26,6 +35,9 @@ class RecettesController extends Controller
         ]);
     }
 
+    /**
+     * Crée une recette
+     */
     public function add()
     {
         $recette = [
@@ -53,6 +65,10 @@ class RecettesController extends Controller
 */
     }
 
+    /**
+     * Affiche les détails d'une recette
+     * @param mixed $id Identifiant de la recette
+     */
     public function show($id)
     {
         $this->view->render("recettes/show", [
@@ -60,6 +76,10 @@ class RecettesController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'une recette
+     * @param mixed $id Identifiant de la recette
+     */
     public function updateForm($id)
     {
         $this->view->render("recettes/update", [
@@ -69,6 +89,10 @@ class RecettesController extends Controller
         ]);
     }
 
+    /**
+     * Modifie une recette
+     * @param mixed $id Identifiant de la recette
+     */
     public function update($id)
     {
         $recette = [
@@ -84,6 +108,10 @@ class RecettesController extends Controller
         $this->redirect("/recettes");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une recette
+     * @param mixed $id Identifiant de la recette
+     */
     public function deleteForm($id)
     {
         $this->view->render("recettes/delete", [
@@ -91,6 +119,10 @@ class RecettesController extends Controller
         ]);
     }
 
+    /**
+     * Supprime une recette
+     * @param mixed $id Identifiant de la recette
+     */
     public function delete($id)
     {
         $recette = Recette::findOrFail($id);

@@ -7,8 +7,15 @@ use app\models\Recette;
 use core\Controller;
 use core\Session;
 
+/**
+ * Class OdeursController
+ * @package app\controllers
+ */
 class OdeursController extends Controller
 {
+    /**
+     * Affiche toutes les odeurs
+     */
     public function index()
     {
         $this->view->render("odeurs/index",[
@@ -16,11 +23,17 @@ class OdeursController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de création d'une odeur
+     */
     public function addForm()
     {
         $this->view->render("odeurs/add");
     }
 
+    /**
+     * Crée une odeur
+     */
     public function add()
     {
         $odeur = [
@@ -42,6 +55,10 @@ class OdeursController extends Controller
         }
     }
 
+    /**
+     * Affiche les détails d'une odeur
+     * @param mixed $id Identifiant de l'odeur
+     */
     public function show($id)
     {
         $this->view->render("odeurs/show", [
@@ -49,6 +66,10 @@ class OdeursController extends Controller
         ]);
     }
 
+    /**
+     * Affiche le formulaire de modification d'une odeur
+     * @param mixed $id Identifiant de l'odeur
+     */
     public function updateForm($id)
     {
         $this->view->render("odeurs/update", [
@@ -56,6 +77,10 @@ class OdeursController extends Controller
         ]);
     }
 
+    /**
+     * Modifie une odeur
+     * @param mixed $id Identifiant de l'odeur
+     */
     public function update($id)
     {
         $odeur = [
@@ -70,6 +95,10 @@ class OdeursController extends Controller
         $this->redirect("/odeurs");
     }
 
+    /**
+     * Affiche le formulaire de suppression d'une odeur
+     * @param mixed $id Identifiant de l'odeur
+     */
     public function deleteForm($id)
     {
         $this->view->render("odeurs/delete", [
@@ -77,6 +106,10 @@ class OdeursController extends Controller
         ]);
     }
 
+    /**
+     * Supprime une odeur
+     * @param mixed $id Identifiant de l'odeur
+     */
     public function delete($id)
     {
         $odeur = Odeur::findOrFail($id);
