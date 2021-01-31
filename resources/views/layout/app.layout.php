@@ -148,7 +148,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="/auteurs/add" class="nav-link">
+                                <a href="/events/add" class="nav-link">
                                     <i class="nav-icon fas fa-plus-circle"></i>
                                     <p>Ajouter un évènement</p>
                                 </a>
@@ -263,7 +263,7 @@
 
                     <!-- link -->
                     <li class="nav-item">
-                        <a href="/auteurs" class="nav-link">
+                        <a href="/events" class="nav-link">
                             <i class="nav-icon fas fa-calendar-day"></i>
                             <p>
                                 Liste des évènements
@@ -273,7 +273,7 @@
 
                     <?php if (\core\Authentication::can("add")): ?>
                     <li class="nav-item">
-                        <a href="/auteurs/add" class="nav-link">
+                        <a href="/events/add" class="nav-link">
                             <i class="nav-icon fas fa-plus-circle"></i>
                             <p>
                                 Ajouter un évènement

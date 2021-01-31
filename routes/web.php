@@ -92,6 +92,17 @@ Route::post('/collections/{id}/delete', [CollectionsController::class, 'delete']
 Route::get('/events', EventsController::class);
 Route::get('/events/{id}', [EventsController::class, 'show']);
 
+Route::get('/events/add', [EventsController::class, 'addForm'])->perm("add");
+Route::post('/events/add', [EventsController::class, 'add'])->perm("add");
+
+
+Route::get('/events/{id}/update', [EventsController::class, 'updateForm'])->perm("edit");
+Route::post('/events/{id}/update', [EventsController::class, 'update'])->perm("edit");
+
+Route::get('/events/{id}/delete', [EventsController::class, 'deleteForm'])->perm("delete");
+Route::post('/events/{id}/delete', [EventsController::class, 'delete'])->perm("delete");
+
+
 //LivresController
 Route::get('/livres', LivresController::class);
 
