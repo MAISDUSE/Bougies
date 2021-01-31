@@ -11,10 +11,13 @@ use core\View;
 abstract class Controller
 {
     /**
-     * @var \core\View $view instance de View
+     * @var \core\View $view Instance de View
      */
     public View $view;
 
+    /**
+     * @var Request $request Instance de Request
+     */
     public Request $request;
 
     /**
@@ -24,7 +27,7 @@ abstract class Controller
 
     /**
      * Controller constructor.
-     * Crée une instance de vue & récupère l'instande de Response
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
@@ -34,6 +37,10 @@ abstract class Controller
 
     }
 
+    /**
+     * Redirige vers l'url passée en paramètre
+     * @param string $url Url cible
+     */
     public function redirect(string $url)
     {
         $this->response->redirect($url);

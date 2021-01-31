@@ -147,7 +147,7 @@ abstract class Model
      * @param mixed $foreignKeyValue Valeur de la colonne de la clé étrangère
      * @return mixed Instance du Model auquel le Model courant appartient
      */
-    public function belongsTo(string $model, $foreignKeyValue)
+    public function belongsTo(string $model, $foreignKeyValue): Model
     {
         return $model::find($foreignKeyValue);
     }
