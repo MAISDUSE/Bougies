@@ -31,7 +31,7 @@ class RecettesController extends Controller
         $recette = [
             'id_bougie' => $this->request->post('id_bougie'),
             'id_odeur' => $this->request->post('id_odeur'),
-            'quantité' => $this->request->post('quantité')
+            'quantite' => $this->request->post('quantite')
         ];
         //on suppose qu'il y a une infinité de recettes toutes différentes
 /*
@@ -74,7 +74,7 @@ class RecettesController extends Controller
         $recette = [
             'id_bougie' => $this->request->post('id_bougie'),
             'id_odeur' => $this->request->post('id_odeur'),
-            'quantité' => $this->request->post('quantité')
+            'quantite' => $this->request->post('quantite')
         ];
 
         Recette::update($id, $recette);

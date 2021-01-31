@@ -39,8 +39,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="quantité" class="col-form-label">Quantité</label>
-                            <input type="text" name="quantité" class="form-control" id="quantité" placeholder="Quantité" value="<?= htmlspecialchars($recette->quantité); ?>" required>
+                            <label for="quantite" class="col-form-label">Quantité</label>
+                            <input type="text" name="quantite" class="form-control" id="quantite" placeholder="Quantité" value="<?= htmlspecialchars($recette->quantité); ?>" required>
                         </div>
                     </div>
                     <!-- /.card-body -->

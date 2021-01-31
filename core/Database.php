@@ -159,8 +159,8 @@ class Database
             $attrs .= "$attr, ";
             $values .= ":$attr, ";
         }
-
-        $attrs = rtrim($attrs, ', ');
+        //cas de l'attribut quantité en bdd
+        $attrs = rtrim(str_replace("quantite", "quantité",$attrs), ', ');
         $values = rtrim($values, ', ');
 
         $statement = $this->pdo->prepare("INSERT INTO $tableName ($attrs) VALUES ($values)");
@@ -185,13 +185,16 @@ class Database
 
         foreach ($updatedElem as $attr => $value)
         {
-            $params .= "$attr = :$attr, ";
+            //cas de l'attribut quantité en bdd
+            $attr1 = str_replace("quantite","quantité",$attr);
+
+            $params .= "$attr1 = :$attr, ";
         }
 
         $params = rtrim($params, ', ');
 
         $statement = $this->pdo->prepare("UPDATE $tableName SET $params WHERE $primaryKey = :elem");
-
+        var_dump($statement);
         $this->bindValues($statement, $updatedElem);
         $this->bindValues($statement, ['elem' => $elem]);
 
