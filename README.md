@@ -1,60 +1,48 @@
-# Bougies
-//////////////////////IMR1//////////////////////
+# TP PHP  - Bougies
 
-2020-2021
+## IMR 1 - 2020 - 2021
 
-//////////////////////Créateurs//////////////////////
+**Auteurs :**
+- DUSÉ Mathieu
+- PONTACQ Hugo
 
-DUSE Mathieu
-PONTACQ Hugo
+**Disclaimer :**
+- Ce TP est basé sur un framework codé main par nos soins et basé sur certains aspects sur Laravel.
+    Ce projet n'utilise donc pas de frameworks existants
 
-//////////////////////Arboresence//////////////////////
+---
 
-Login
+## Instructions
 
-Ajout-Modification-Lister les différentes Tables
+- Renommer app/config/ConfigExample.php en app/config/Config.php
+  - Renommer la Classe ConfigExample en Config
+  - Adapter la configuration
+    - `config['db_****']` -> configuration de la base de donnée
+    - `config['template_key']` -> mot clé du générateur de template (`default: 'layout'`)
+    - `config['debug']`
+        - `true` -> Affiche les exceptions
+        - `false` -> Affiche seulement une page d'erreur avec le code erreur
+    
+- Lancer le serveur php à la racine du projet à l'aide de `php -S localhost:8000 -t ./public`
 
-Admin : gestion des droits
+- Point d'entrée public/index.php   
+    - Serveur lancé dans public -> restriction d'accès aux autres dossiers
 
-Stats
 
-//////////////////////Règles//////////////////////
+---
 
-//////////////////////PSR-1//////////////////////
-Files MUST use only <?php and <?= tags.
+## Arborescence
 
-Files MUST use only UTF-8 without BOM for PHP code.
+- app -> Concerne l'instance du framework
+    - config -> Contient le fichier de configuration
+    - controllers -> Contient tous les controllers
+    - models -> Contient tous les models
+    
+- core -> Contient tout le noyau du framework
 
-Files SHOULD either declare symbols (classes, functions, constants, etc.) or cause side-effects (e.g. generate output, change .ini settings, etc.) but SHOULD NOT do both.
+- public -> Contient le point d'entrée et les ressources strictement accessible par le client, les autres dossiers lui sont impossible d'accès
 
-Namespaces and classes MUST follow an “autoloading” PSR: [PSR-0, PSR-4].
+- resources -> Contient toutes les ressources du framework
+    - views -> Contient toutes les vues
 
-Class names MUST be declared in StudlyCaps.
-
-Class constants MUST be declared in all upper case with underscore separators.
-
-Method names MUST be declared in camelCase.
-
-//////////////////////PSR-2//////////////////////
-
-Code MUST use 4 spaces for indenting, not tabs.
-
-There MUST NOT be a hard limit on line length; the soft limit MUST be 120 characters; lines SHOULD be 80 characters or less.
-
-There MUST be one blank line after the namespace declaration, and there MUST be one blank line after the block of use declarations.
-
-Opening braces for classes MUST go on the next line, and closing braces MUST go on the next line after the body.
-
-Opening braces for methods MUST go on the next line, and closing braces MUST go on the next line after the body.
-
-Visibility MUST be declared on all properties and methods; abstract and final MUST be declared before the visibility; static MUST be declared after the visibility.
-
-Control structure keywords MUST have one space after them; method and function calls MUST NOT.
-
-Opening braces for control structures MUST go on the same line, and closing braces MUST go on the next line after the body.
-
-Opening parentheses for control structures MUST NOT have a space after them, and closing parentheses for control structures MUST NOT have a space before.
-
-//////////////////////END PSR//////////////////////
-
-//////////////////////END README//////////////////////
+- routes -> Contient les routes
