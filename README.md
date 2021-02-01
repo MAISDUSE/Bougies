@@ -7,8 +7,8 @@
 - PONTACQ Hugo
 
 **Disclaimer :**
-- Ce TP est basé sur un framework codé main par nos soins et basé sur certains aspects sur Laravel.
-    Ce projet n'utilise donc pas de frameworks existants
+- Ce TP est basé sur un framework codé main par nos soins dans le cadre du projet et basé sur certains aspects sur Laravel.
+    Ce projet n'utilise donc pas de frameworks existants ni repris d'anciens TP.
 
 ---
 
@@ -18,7 +18,7 @@
   - Renommer la Classe ConfigExample en Config
   - Adapter la configuration
     - `config['db_****']` -> configuration de la base de donnée
-    - `config['template_key']` -> mot clé du générateur de template (`default: 'layout'`)
+    - `config['template_key']` -> mot clé du générateur de template (`default: 'layout'`, ce tp utilise le mot clé par défaut)
     - `config['debug']`
         - `true` -> Affiche les exceptions
         - `false` -> Affiche seulement une page d'erreur avec le code erreur
