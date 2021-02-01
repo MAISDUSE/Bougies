@@ -10,6 +10,9 @@ use PDO;
  */
 class Database
 {
+    /**
+     * @var PDO $pdo Instance de PDO
+     */
     public PDO $pdo;
 
     /**

@@ -84,10 +84,9 @@ class Router
 
     /**
      * Détermine si l'url est associé à une route
-     * Retourne la fonction à executer sous forme de tableau ou de fonction, false si l'url n'est pas associée à une route
      * @param string $method Méthode (get, post)
      * @param string $path Url
-     * @return array|false|mixed
+     * @return array|false|mixed fonction à executer sous forme de tableau ou de fonction, false si l'url n'est pas associée à une route
      */
     public function match(string $method, string $path)
     {

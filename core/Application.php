@@ -11,7 +11,7 @@ use app\config\Config;
 class Application
 {
     /**
-     * @var Application $app Singleton correspondant à l'application
+     * @var Application $app Singleton correspondant à l'instance de l'application
      */
     public static Application $app;
 
@@ -37,7 +37,13 @@ class Application
     public array $config;
 
     /**
-     * Application constructor. Défini le singleton et instancie un Router
+     * Application constructor.
+     * Défini le singleton
+     * Démarre la session
+     * Charge la configuration
+     * Crée une instance de Response
+     * Crée une instance de Database
+     * Crée une instance de Router
      */
     public function __construct()
     {

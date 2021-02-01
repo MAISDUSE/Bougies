@@ -9,8 +9,15 @@ namespace core;
  */
 class Request
 {
+    /**
+     * @var CSRFValidation $csrf Instance de CSRF
+     */
     public CSRFValidation $csrf;
 
+    /**
+     * Request constructor.
+     * Crée une instance de CSRF
+     */
     public function __construct()
     {
         $this->csrf = new CSRFValidation();
@@ -18,7 +25,7 @@ class Request
 
     /**
      * Récupère l'url
-     * @return string
+     * @return string url
      */
     public function getPath() : string
     {

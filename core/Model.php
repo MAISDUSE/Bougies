@@ -196,8 +196,9 @@ abstract class Model
     }
 
     /**
-     * @param string $request
-     * @return array
+     * Execute une requete SQL brute
+     * @param string $request Requete
+     * @return array Résultat de la requete
      */
     public static function raw(string $request): array
     {

@@ -15,9 +15,22 @@ class Route
      */
     public static array $routes = [];
 
+    /**
+     * @var string $method méthode de la route
+     */
     public string $method;
+
+    /**
+     * @var string $route url de la route
+     */
     public string $route;
 
+    /**
+     * Route constructor.
+     * @param string $method méthode
+     * @param string $uri url
+     * @param $callback callback
+     */
     public function __construct(string $method, string $uri, $callback)
     {
         self::$routes[$method][$uri] = $callback;
@@ -48,6 +61,10 @@ class Route
         return new self('post', $uri, $callback);
     }
 
+    /**
+     * Protection de la route
+     * @param string $permission Permission
+     */
     public function perm(string $permission)
     {
         if(!Auth::can($permission)) unset(self::$routes[$this->method][$this->route]);

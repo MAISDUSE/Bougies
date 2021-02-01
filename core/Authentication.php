@@ -5,9 +5,15 @@ namespace core;
 
 use app\models\User;
 
-
+/**
+ * Class Authentication
+ * @package core
+ */
 class Authentication
 {
+    /**
+     * Constante => tableau de permissions
+     */
     public const PERMISSIONS = [
         "add" => 1,
         "edit" => 2,
@@ -15,6 +21,9 @@ class Authentication
         "admin" => 10
     ];
 
+    /**
+     * Constante => Desciption des permissions
+     */
     public const PERM_DESC = [
         "add" => "Ajouter des éléments",
         "edit" => "Editer des éléments",
@@ -22,6 +31,12 @@ class Authentication
         "admin" => "Gérer les utilisateurs"
     ];
 
+    /**
+     * L'utilisateur peut-il executer l'action ?
+     * @param mixed $minPerm Permission de l'action à effectuer
+     * @param int $idUser Identifiant de l'utilisateur
+     * @return bool true si l'utilisateur a la permission, false sinon
+     */
     public static function can($minPerm, int $idUser = 0): bool
     {
         if (is_string($minPerm))
@@ -47,13 +62,22 @@ class Authentication
         return $can;
     }
 
+    /**
+     * Déconnecte l'utilisateur => vide la session et la détruit
+     */
     public static function logout()
     {
         session_unset();
         session_destroy();
     }
 
-    public static function login($login, $lpassword): int
+    /**
+     * Connecte l'utilisateur
+     * @param string $login Identifiant de l'utilisateur
+     * @param string $lpassword Mot de passe de l'utilisateur
+     * @return int Code de retour etat < 0 -> connexion échouée, réussie sinon
+     */
+    public static function login(string $login, string $lpassword): int
     {
         $me = User::where("login", $login)[0];
         //var_dump($me);
@@ -73,11 +97,16 @@ class Authentication
             $etat = -2; //"L'utilisateur ".$login." n'existe pas.";
         }
         return $etat;
-    }//la valeur de retour s'affiche sur l'écran soit le login n'existe pas
+    }
 
-    //soit le mot de passe n'est pas le bon
-
-    public static function register($login, $password, $cpassword): int
+    /**
+     * Inscrit un nouvel utilisateur
+     * @param string $login Identifiant de l'utilisateur
+     * @param string $password Mot de passe
+     * @param string $cpassword Confirmation de mot de passe
+     * @return int Code de retour etat < 0 -> inscription échouée, réussie sinon
+     */
+    public static function register(string $login, string $password, string $cpassword): int
     {
         $etat = -3;
         if ($password == $cpassword) {

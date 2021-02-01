@@ -9,6 +9,10 @@ namespace core;
  */
 class Response
 {
+    /**
+     * Défini le code de statut envoyé au navigateur (404, 500, etc...)
+     * @param int $code
+     */
     public function setStatusCode(int $code)
     {
         http_response_code($code);

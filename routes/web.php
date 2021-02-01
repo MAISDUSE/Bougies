@@ -1,5 +1,7 @@
 <?php
 
+use core\Route;
+
 use app\controllers\BougiesController;
 use app\controllers\IndexController;
 use app\controllers\UsersController;
@@ -12,7 +14,6 @@ use app\controllers\OdeursController;
 
 use app\controllers\AdminController;
 
-use core\Route;
 
 
 /* Définition des routes utilisateurs
@@ -25,12 +26,16 @@ use core\Route;
     Route::get('/test', function () {
         echo "Test function !<br>";
     });
+    Route::post('/example', ExampleController::class);
+    Route::get('/example', [ExampleController::class, 'method']);
 */
 
 Route::get('/', IndexController::class);
 
 
-//users
+// ======
+// Routes utilisateur
+// ======
 Route::get('/user', [UsersController::class, 'show']);
 Route::get('/users/{id}', [UsersController::class, 'show']);
 
@@ -43,7 +48,9 @@ Route::post('/register', [UsersController::class, 'register']);
 Route::get('/logout', [UsersController::class, 'logout']);
 
 
-//AuteursController
+// ======
+// Routes auteurs
+// ======
 Route::get('/auteurs', AuteursController::class);
 
 Route::get('/auteurs/add', [AuteursController::class, 'addForm'])->perm("add");
@@ -58,7 +65,9 @@ Route::get('/auteurs/{id}/delete', [AuteursController::class, 'deleteForm'])->pe
 Route::post('/auteurs/{id}/delete', [AuteursController::class, 'delete'])->perm("delete");
 
 
-//BougiesController
+// ======
+// Routes bougies
+// ======
 Route::get('/bougies',BougiesController::class);
 
 Route::get('/bougies/add', [BougiesController::class, 'addForm'])->perm("add");
@@ -73,7 +82,9 @@ Route::get('/bougies/{id}/delete', [BougiesController::class, 'deleteForm'])->pe
 Route::post('/bougies/{id}/delete', [BougiesController::class, 'delete'])->perm("delete");
 
 
-//CollectionsController
+// ======
+// Routes collection
+// ======
 Route::get('/collections', CollectionsController::class);
 
 Route::get('/collections/add', [CollectionsController::class, 'addForm'])->perm("add");
@@ -88,7 +99,9 @@ Route::get('/collections/{id}/delete', [CollectionsController::class, 'deleteFor
 Route::post('/collections/{id}/delete', [CollectionsController::class, 'delete'])->perm("delete");
 
 
-//EventsController
+// ======
+// Routes events
+// ======
 Route::get('/events', EventsController::class);
 
 Route::get('/events/{id}', [EventsController::class, 'show']);
@@ -110,7 +123,9 @@ Route::get('/events/{id}/delete', [EventsController::class, 'deleteForm'])->perm
 Route::post('/events/{id}/delete', [EventsController::class, 'delete'])->perm("delete");
 
 
-//LivresController
+// ======
+// Routes livres
+// ======
 Route::get('/livres', LivresController::class);
 
 Route::get('/livres/add', [LivresController::class, 'addForm'])->perm("add");
@@ -125,7 +140,9 @@ Route::get('/livres/{id}/delete', [LivresController::class, 'deleteForm'])->perm
 Route::post('/livres/{id}/delete', [LivresController::class, 'delete'])->perm("delete");
 
 
-//OdeursController
+// ======
+// Routes odeur
+// ======
 Route::get('/odeurs', OdeursController::class);
 
 Route::get('/odeurs/add', [OdeursController::class, 'addForm'])->perm("add");
@@ -139,7 +156,10 @@ Route::post('/odeurs/{id}/update', [OdeursController::class, 'update'])->perm("e
 Route::get('/odeurs/{id}/delete', [OdeursController::class, 'deleteForm'])->perm("delete");
 Route::post('/odeurs/{id}/delete', [OdeursController::class, 'delete'])->perm("delete");
 
-//RecettesController
+
+// ======
+// Routes recette
+// ======
 Route::get('/recettes', RecettesController::class);
 
 Route::get('/recettes/add', [RecettesController::class, 'addForm'])->perm("add");
@@ -155,7 +175,10 @@ Route::post('/recettes/{id}/delete', [RecettesController::class, 'delete'])->per
 
 
 
-//AdminController
+
+// ======
+// Routes admin
+// ======
 Route::get('/admin', AdminController::class)->perm("admin");
 
 Route::get('/admin/{id}/update', [AdminController::class, 'updateForm'])->perm("admin");
